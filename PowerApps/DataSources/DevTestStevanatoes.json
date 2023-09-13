@@ -1,0 +1,99 @@
+[
+  {
+    "CdsFCBContext": "{\"FileType\":true,\"ImageExternalStorage\":true}",
+    "EntitySetName": "cr04c_devteststevanatos",
+    "IsHidden": false,
+    "IsSampleData": false,
+    "IsWritable": true,
+    "LogicalName": "cr04c_devteststevanato",
+    "MaxGetRowsCount": 500,
+    "Name": "DevTestStevanatoes",
+    "NativeCDSDataSourceInfoNameMapping": {
+      "_ownerid_value": "Owner",
+      "cr04c_avg": "Avg",
+      "cr04c_avgpoint": "Avg Point",
+      "cr04c_devteststevanato_AsyncOperations": "System Jobs",
+      "cr04c_devteststevanato_BulkDeleteFailures": "Bulk Delete Failures",
+      "cr04c_devteststevanato_DuplicateBaseRecord": "Duplicate Records (cr04c_devteststevanato_DuplicateBaseRecord)",
+      "cr04c_devteststevanato_DuplicateMatchingRecord": "Duplicate Records (cr04c_devteststevanato_DuplicateMatchingRecord)",
+      "cr04c_devteststevanato_MailboxTrackingFolders": "Mailbox Auto Tracking Folders",
+      "cr04c_devteststevanato_PrincipalObjectAttributeAccesses": "Field Sharing",
+      "cr04c_devteststevanato_ProcessSession": "Process Sessions",
+      "cr04c_devteststevanato_SyncErrors": "Sync Errors",
+      "cr04c_devteststevanatoid": "DevTestStevanato",
+      "cr04c_name": "Name",
+      "createdby": "Created By",
+      "createdon": "Created On",
+      "createdonbehalfby": "Created By (Delegate)",
+      "importsequencenumber": "Import Sequence Number",
+      "modifiedby": "Modified By",
+      "modifiedon": "Modified On",
+      "modifiedonbehalfby": "Modified By (Delegate)",
+      "overriddencreatedon": "Record Created On",
+      "owningbusinessunit": "Owning Business Unit",
+      "owningteam": "Owning Team",
+      "owninguser": "Owning User",
+      "statecode": "Status",
+      "statuscode": "Status Reason",
+      "timezoneruleversionnumber": "Time Zone Rule Version Number",
+      "utcconversiontimezonecode": "UTC Conversion Time Zone Code",
+      "versionnumber": "Version Number"
+    },
+    "PreferredName": "DevTestStevanatoes",
+    "Type": "NativeCDSDataSourceInfo"
+  },
+  {
+    "DisplayName": "DevTestStevanatoes (Views)",
+    "Name": "_cr04c_devteststevanato_views",
+    "RelatedEntityName": "DevTestStevanatoes",
+    "TrimmedViewName": true,
+    "Type": "ViewInfo",
+    "ViewInfoNameMapping": {
+      "26c947fb-a4cf-46ba-9965-a5e414b18736": "Active DevTestStevanatoes",
+      "287b8af1-b2c7-4700-ba75-cdda947ec9c3": "DevTestStevanato Associated View",
+      "37a0844f-2e2c-4702-8a18-68724bbdf39b": "DevTestStevanato Advanced Find View",
+      "c239aa6e-ad91-4e47-a5c6-2631ff15cd19": "DevTestStevanato Lookup View",
+      "fcab14f1-27b4-4bf4-b3ab-b2cc7c33b793": "Inactive DevTestStevanatoes"
+    }
+  },
+  {
+    "DisplayName": "Status (DevTestStevanatoes)",
+    "Name": "cr04c_devteststevanato_statecode",
+    "OptionSetInfoNameMapping": {
+      "0": "Active",
+      "1": "Inactive"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "statecode",
+        "OptionSetReferenceEntityName": "DevTestStevanatoes"
+      }
+    },
+    "OptionSetTypeKey": "StateType",
+    "RelatedColumnInvariantName": "statecode",
+    "RelatedEntityName": "DevTestStevanatoes",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Status Reason (DevTestStevanatoes)",
+    "Name": "cr04c_devteststevanato_statuscode",
+    "OptionSetInfoNameMapping": {
+      "1": "Active",
+      "2": "Inactive"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "statuscode",
+        "OptionSetReferenceEntityName": "DevTestStevanatoes"
+      }
+    },
+    "OptionSetTypeKey": "StatusType",
+    "RelatedColumnInvariantName": "statuscode",
+    "RelatedEntityName": "DevTestStevanatoes",
+    "Type": "OptionSetInfo"
+  }
+]

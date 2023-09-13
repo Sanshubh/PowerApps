@@ -1,0 +1,185 @@
+HomeScreen As screen:
+    Fill: =RGBA(0, 0, 0, 0)
+    OnVisible: |-
+        =Set(R,RandBetween(150,255));
+        Set(G,RandBetween(150,255));
+        Set(B,RandBetween(150,255));
+        
+        Set(DR,1);
+        Set(DG,1);
+        Set(DB,1);
+
+    htmDynamicGradient As htmlViewer:
+        Height: =768
+        HtmlText: |-
+            ="
+            <div style='
+            padding:383px;
+            background: linear-gradient(217deg, RGBA("& R &","& G &","& B &",1), RGBA("& G &","& B &","& R &",0.5) 64%),
+                        linear-gradient(217deg, RGBA("& B &","& R &","& G &",1), RGBA("& G &","& R &","& B &",0.5) 20%),
+                        linear-gradient(217deg, RGBA("& G &","& B &","& R &",1), RGBA("& B &","& R &","& G &",0.5) 35%);
+            
+            
+            '
+            </dv>
+            "
+        PaddingBottom: =0
+        PaddingLeft: =0
+        PaddingRight: =0
+        PaddingTop: =0
+        Width: =1366
+        ZIndex: =1
+
+    lblBGEffect As label:
+        Fill: =RGBA(219, 219, 219, 0.2)
+        Height: =725
+        Text: =""
+        Width: =1326
+        X: =15
+        Y: =16
+        ZIndex: =2
+
+    lblTitle As label:
+        Align: =Align.Center
+        Color: =RGBA(R-50, G-50, B-50, 1)
+        FontWeight: =FontWeight.Bold
+        Height: =98
+        Size: =23
+        Text: ="Home Screen"
+        Width: =1366
+        ZIndex: =3
+
+    btnS1 As button:
+        BorderThickness: =0
+        Color: =RGBA(255, 255, 255, 1)//RGBA(R, B, G, 1)
+        Fill: =RGBA(R-50, G-50, B-50, 1)
+        Height: =45
+        OnSelect: =Navigate(Screen1)
+        RadiusBottomLeft: =25
+        RadiusBottomRight: =25
+        RadiusTopLeft: =25
+        RadiusTopRight: =25
+        Size: =13
+        Text: ="Screen 1"
+        Width: =141
+        X: =872
+        Y: =612
+        ZIndex: =4
+
+    btnS2 As button:
+        BorderThickness: =0
+        Color: =RGBA(255, 255, 255, 1)//RGBA(R, B, G, 1)
+        Fill: =RGBA(R-50, G-50, B-50, 1)
+        Height: =45
+        OnSelect: =Navigate(Screen2)
+        RadiusBottomLeft: =25
+        RadiusBottomRight: =25
+        RadiusTopLeft: =25
+        RadiusTopRight: =25
+        Size: =13
+        Text: ="Screen 2"
+        Width: =141
+        X: =1187
+        Y: =612
+        ZIndex: =5
+
+    btnS3 As button:
+        BorderThickness: =0
+        Color: =RGBA(255, 255, 255, 1)//RGBA(R, B, G, 1)
+        Fill: =RGBA(R-50, G-50, B-50, 1)
+        Height: =45
+        OnSelect: =Navigate(Screen3)
+        RadiusBottomLeft: =25
+        RadiusBottomRight: =25
+        RadiusTopLeft: =25
+        RadiusTopRight: =25
+        Size: =13
+        Text: ="Screen 3"
+        Width: =141
+        X: =1029
+        Y: =612
+        ZIndex: =6
+
+    btnImg As button:
+        BorderThickness: =0
+        Color: =RGBA(255, 255, 255, 1)//RGBA(R, B, G, 1)
+        Fill: =RGBA(R-50, G-50, B-50, 1)
+        Height: =45
+        OnSelect: =Navigate(ImageScreen)
+        RadiusBottomLeft: =25
+        RadiusBottomRight: =25
+        RadiusTopLeft: =25
+        RadiusTopRight: =25
+        Size: =13
+        Text: ="Image"
+        Width: =141
+        X: =872
+        Y: =677
+        ZIndex: =7
+
+    btnTestScr As button:
+        BorderThickness: =0
+        Color: =RGBA(255, 255, 255, 1)//RGBA(R, B, G, 1)
+        Fill: =RGBA(R-50, G-50, B-50, 1)
+        Height: =45
+        OnSelect: =Navigate(TestScreen)
+        RadiusBottomLeft: =25
+        RadiusBottomRight: =25
+        RadiusTopLeft: =25
+        RadiusTopRight: =25
+        Size: =13
+        Text: ="Test Screen"
+        Width: =141
+        X: =1029
+        Y: =677
+        ZIndex: =8
+
+    btnSetClr As button:
+        BorderThickness: =0
+        Color: =RGBA(255, 255, 255, 1)//RGBA(R, B, G, 1)
+        Fill: =RGBA(R-50, G-50, B-50, 1)
+        Height: =45
+        OnSelect: |-
+            =Set(R,RandBetween(150,255));
+            Set(G,RandBetween(0,255));
+            Set(B,RandBetween(100,255));
+            
+            Set(DR,1);
+            Set(DG,1);
+            Set(DB,1);
+        RadiusBottomLeft: =25
+        RadiusBottomRight: =25
+        RadiusTopLeft: =25
+        RadiusTopRight: =25
+        Size: =13
+        Text: ="set clr"
+        Width: =141
+        X: =1187
+        Y: =677
+        ZIndex: =9
+
+    timeClr As timer:
+        AutoStart: =true
+        Duration: =50
+        OnTimerEnd: |-
+            =If(
+                DR=1,
+                If(R<255,Set(R,R+1),Set(DR,-1)),
+                If(R>150,Set(R,R-1),Set(DR,1))
+            );
+            If(
+                DG=1,
+                If(G<255,Set(G,G+1),Set(DG,-1)),
+                If(G>150,Set(G,G-1),Set(DG,1))
+            );
+            If(
+                DB=1,
+                If(B<255,Set(B,B+1),Set(DB,-1)),
+                If(B>150,Set(B,B-1),Set(DB,1))
+            );
+        Repeat: =true
+        Visible: =false
+        X: =690
+        Y: =682
+        ZIndex: =10
+

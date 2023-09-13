@@ -1,0 +1,421 @@
+Screen1 As screen:
+    OnVisible: =Set(varCountData,CountRows(DevTestStevanatoes));
+
+    htmDynamicGradient_2 As htmlViewer:
+        Height: =768
+        HtmlText: |-
+            ="
+            <div style='
+            padding:383px;
+            background: linear-gradient(217deg, RGBA("& R &","& G &","& B &",1), RGBA("& G &","& B &","& R &",0.5) 64%),
+                        linear-gradient(217deg, RGBA("& B &","& R &","& G &",1), RGBA("& G &","& R &","& B &",0.5) 20%),
+                        linear-gradient(217deg, RGBA("& G &","& B &","& R &",1), RGBA("& B &","& R &","& G &",0.5) 35%);
+            
+            
+            '
+            </dv>
+            "
+        PaddingBottom: =0
+        PaddingLeft: =0
+        PaddingRight: =0
+        PaddingTop: =0
+        Width: =1366
+        ZIndex: =1
+
+    lblBGEffect_2 As label:
+        Fill: =RGBA(219, 219, 219, 0.2)
+        Height: =725
+        Text: =""
+        Width: =1326
+        X: =15
+        Y: =16
+        ZIndex: =2
+
+    timeClr_2 As timer:
+        AutoStart: =true
+        Duration: =50
+        OnTimerEnd: |-
+            =If(
+                DR=1,
+                If(R<255,Set(R,R+1),Set(DR,-1)),
+                If(R>150,Set(R,R-1),Set(DR,1))
+            );
+            If(
+                DG=1,
+                If(G<255,Set(G,G+1),Set(DG,-1)),
+                If(G>150,Set(G,G-1),Set(DG,1))
+            );
+            If(
+                DB=1,
+                If(B<255,Set(B,B+1),Set(DB,-1)),
+                If(B>150,Set(B,B-1),Set(DB,1))
+            );
+        Repeat: =true
+        Visible: =false
+        X: =690
+        Y: =682
+        ZIndex: =3
+
+    Image5_1 As image:
+        Height: =768
+        Image: |-
+            ="https://quickchart.io/chart?c="&EncodeUrl("{
+              'type': 'bar',
+              'data': {
+                'labels': [
+                  '1 - Unsatisfactory',
+                  '2 - Needs Improvement',
+                  '3 - Acheaved Expectation',
+                  '4 - Above Expectation',
+                  '5 - Outstanding'
+                ],
+                'datasets': [
+                  {
+                    'type': 'line',
+                    'label': '% PDP desired curve',
+                    'borderColor': 'rgb(37, 175, 87)',
+                    'borderWidth': 2,
+                    'fill': false,
+                    'data': [
+                      2,
+                      13,
+                      14,
+                      26,
+                      47
+                    ],
+                    'yAxisID': 'y1'
+                  },
+                  {
+                    'type': 'line',
+                    'label': 'Actual SG PDP 2021 (HC)',
+                    'borderColor': 'rgb(185, 30, 0)',
+                    'borderWidth': 2,
+                    'fill': false,
+                    'data': [
+                      10,
+                      11,
+                      29,
+                      42,
+                      8
+                    ],
+                    'yAxisID': 'y1'
+                  },
+                  {
+                    'type': 'bar',
+                    'label': 'Actual SG PDP 2021 (HC)',
+                    'backgroundColor': 'rgb(35, 124, 201)',
+                    'data': [
+                      "&CountRows(Filter(DevTestStevanatoes,(Avg > 1 ||Avg = 1) && (Avg < 2.49||Avg = 2.49)))&",
+                      "&CountRows(Filter(DevTestStevanatoes,(Avg > 2.50 ||Avg = 2.50) && (Avg < 2.99||Avg = 2.99)))&",
+                      "&CountRows(Filter(DevTestStevanatoes,(Avg > 3 ||Avg = 3) && (Avg < 3.80||Avg = 3.80)))&",
+                      "&CountRows(Filter(DevTestStevanatoes,(Avg > 3.81 ||Avg = 3.81) && (Avg < 4.30||Avg = 4.30)))&",
+                      "&CountRows(Filter(DevTestStevanatoes,(Avg > 4.31 ||Avg = 4.31) && (Avg < 5||Avg = 5)))&"
+                    ],
+                    'yAxisID': 'y'
+                  }
+                ]
+              },
+              'options': {
+                'responsive': true,
+                'title': {
+                  'display': true,
+                  'text': 'Manager Evalution'
+                },
+                'scales': {
+                  'yAxes': [
+                  {
+                    'id': 'y',
+                    'type': 'linear',
+                    'display': true,
+                    'position': 'left'
+                  }, 
+                  {
+                    'id': 'y1',
+                    'type': 'linear',
+                    'display': true,
+                    'position': 'right',
+                    ticks: {
+                      callback: (val) => {
+                        return val + '%'
+                      }
+                    },
+                    'gridLines': {
+                      'drawOnChartArea': false
+                    }
+                  }
+                  ]
+                }
+              }
+            }"
+            )
+        Width: =833
+        X: =531
+        ZIndex: =4
+
+    Icon1_3 As icon.Add:
+        Icon: =Icon.BackArrow
+        OnSelect: =Navigate(Screen2)
+        ZIndex: =5
+
+    lbl As label:
+        Align: =Align.Center
+        BorderColor: =RGBA(0, 0, 0, 1)
+        BorderThickness: =1
+        Color: =RGBA(102, 157, 202,1)
+        FontWeight: =FontWeight.Bold
+        Height: =57
+        Size: =8
+        Text: ="Rating For PDP Mgmt Purpose"
+        Width: =215
+        X: =11
+        Y: =274
+        ZIndex: =6
+
+    lbl_1 As label:
+        Align: =Align.Center
+        BorderColor: =RGBA(0, 0, 0, 1)
+        BorderThickness: =1
+        Color: =RGBA(255, 255, 255, 1)
+        Fill: =RGBA(194, 32, 0,1)
+        FontWeight: =FontWeight.Bold
+        Height: =33
+        Size: =8
+        Text: ="poor performance / Unsatisfactory"
+        Width: =lbl.Width
+        X: =lbl.X
+        Y: =lbl.Height+lbl.Y
+        ZIndex: =7
+
+    lbl_2 As label:
+        Align: =Align.Center
+        BorderColor: =RGBA(0, 0, 0, 1)
+        BorderThickness: =1
+        Color: =RGBA(255, 255, 255, 1)
+        Fill: =RGBA(243, 158, 0,1)
+        FontWeight: =FontWeight.Bold
+        Height: =45
+        Size: =8
+        Text: ="Partially Good performance/Needs Improvement"
+        Width: =lbl.Width
+        X: =lbl.X
+        Y: =lbl_1.Height+lbl_1.Y
+        ZIndex: =8
+
+    lbl_3 As label:
+        Align: =Align.Center
+        BorderColor: =RGBA(0, 0, 0, 1)
+        BorderThickness: =1
+        Fill: =RGBA(250, 199, 0,1)
+        FontWeight: =FontWeight.Bold
+        Height: =33
+        Size: =8
+        Text: ="Good performance / Meet Expectation"
+        Width: =lbl.Width
+        X: =lbl.X
+        Y: =lbl_2.Height+lbl_2.Y
+        ZIndex: =9
+
+    lbl_4 As label:
+        Align: =Align.Center
+        BorderColor: =RGBA(0, 0, 0, 1)
+        BorderThickness: =1
+        Color: =RGBA(255, 255, 255, 1)
+        Fill: =RGBA(158, 211, 86,1)
+        FontWeight: =FontWeight.Bold
+        Height: =45
+        Size: =8
+        Text: ="Very Good performance / Above Expectation"
+        Width: =lbl.Width
+        X: =lbl.X
+        Y: =lbl_3.Height+lbl_3.Y
+        ZIndex: =10
+
+    lbl_5 As label:
+        Align: =Align.Center
+        BorderColor: =RGBA(0, 0, 0, 1)
+        BorderThickness: =1
+        Color: =RGBA(255, 255, 255, 1)
+        Fill: =RGBA(34, 164, 85,1)
+        FontWeight: =FontWeight.Bold
+        Height: =33
+        Size: =8
+        Text: ="Exceptional performance / Outstanding"
+        Width: =lbl.Width
+        X: =lbl.X
+        Y: =lbl_4.Height+lbl_4.Y
+        ZIndex: =11
+
+    lbl_6 As label:
+        Align: =Align.Center
+        BorderColor: =RGBA(0, 0, 0, 1)
+        BorderThickness: =1
+        Color: =RGBA(102, 157, 202,1)
+        FontWeight: =FontWeight.Bold
+        Height: =57
+        Size: =8
+        Text: ="Score For Perf. Mgmt Purpose"
+        Width: =135
+        X: =lbl.Width+lbl.X
+        Y: =lbl.Y
+        ZIndex: =12
+
+    lbl_7 As label:
+        Align: =Align.Center
+        BorderColor: =RGBA(0, 0, 0, 1)
+        BorderThickness: =1
+        Color: =RGBA(102, 157, 202,1)
+        FontWeight: =FontWeight.Bold
+        Height: =57
+        Size: =8
+        Text: ="Boundaries for PDP rating calculation"
+        Width: =170
+        X: =lbl_6.X+lbl_6.Width
+        Y: =lbl.Y
+        ZIndex: =13
+
+    lbl_8 As label:
+        Align: =Align.Center
+        BorderColor: =RGBA(0, 0, 0, 1)
+        BorderThickness: =1
+        Color: =RGBA(102, 157, 202,1)
+        FontWeight: =FontWeight.Bold
+        Height: =33
+        Size: =8
+        Text: ="1"
+        Width: =135
+        X: =lbl.Width+lbl.X
+        Y: =lbl.Height+lbl.Y
+        ZIndex: =14
+
+    lbl_9 As label:
+        Align: =Align.Center
+        BorderColor: =RGBA(0, 0, 0, 1)
+        BorderThickness: =1
+        Color: =RGBA(102, 157, 202,1)
+        FontWeight: =FontWeight.Bold
+        Height: =33
+        Size: =8
+        Text: ="From 1 to 2.49"
+        Width: =170
+        X: =lbl_6.X+lbl_6.Width
+        Y: =lbl.Height+lbl.Y
+        ZIndex: =15
+
+    lbl_10 As label:
+        Align: =Align.Center
+        BorderColor: =RGBA(0, 0, 0, 1)
+        BorderThickness: =1
+        Color: =RGBA(102, 157, 202,1)
+        FontWeight: =FontWeight.Bold
+        Height: =45
+        Size: =8
+        Text: ="2"
+        Width: =135
+        X: =lbl.Width+lbl.X
+        Y: =lbl_1.Height+lbl_1.Y
+        ZIndex: =16
+
+    lbl_11 As label:
+        Align: =Align.Center
+        BorderColor: =RGBA(0, 0, 0, 1)
+        BorderThickness: =1
+        Color: =RGBA(102, 157, 202,1)
+        FontWeight: =FontWeight.Bold
+        Height: =45
+        Size: =8
+        Text: ="From 2.50 to 2.99"
+        Width: =170
+        X: =lbl_6.X+lbl_6.Width
+        Y: =lbl_1.Height+lbl_1.Y
+        ZIndex: =17
+
+    lbl_12 As label:
+        Align: =Align.Center
+        BorderColor: =RGBA(0, 0, 0, 1)
+        BorderThickness: =1
+        Color: =RGBA(102, 157, 202,1)
+        FontWeight: =FontWeight.Bold
+        Height: =33
+        Size: =8
+        Text: ="3"
+        Width: =135
+        X: =lbl.Width+lbl.X
+        Y: =lbl_2.Height+lbl_2.Y
+        ZIndex: =18
+
+    lbl_13 As label:
+        Align: =Align.Center
+        BorderColor: =RGBA(0, 0, 0, 1)
+        BorderThickness: =1
+        Color: =RGBA(102, 157, 202,1)
+        FontWeight: =FontWeight.Bold
+        Height: =33
+        Size: =8
+        Text: ="From 3 to 3.80"
+        Width: =170
+        X: =lbl_6.X+lbl_6.Width
+        Y: =lbl_2.Height+lbl_2.Y
+        ZIndex: =19
+
+    lbl_14 As label:
+        Align: =Align.Center
+        BorderColor: =RGBA(0, 0, 0, 1)
+        BorderThickness: =1
+        Color: =RGBA(102, 157, 202,1)
+        FontWeight: =FontWeight.Bold
+        Height: =33
+        Size: =8
+        Text: ="5"
+        Width: =135
+        X: =lbl.Width+lbl.X
+        Y: =lbl_4.Height+lbl_4.Y
+        ZIndex: =20
+
+    lbl_15 As label:
+        Align: =Align.Center
+        BorderColor: =RGBA(0, 0, 0, 1)
+        BorderThickness: =1
+        Color: =RGBA(102, 157, 202,1)
+        FontWeight: =FontWeight.Bold
+        Height: =33
+        Size: =8
+        Text: ="Above 4.31"
+        Width: =170
+        X: =lbl_6.X+lbl_6.Width
+        Y: =lbl_4.Height+lbl_4.Y
+        ZIndex: =21
+
+    lbl_16 As label:
+        Align: =Align.Center
+        BorderColor: =RGBA(0, 0, 0, 1)
+        BorderThickness: =1
+        Color: =RGBA(102, 157, 202,1)
+        FontWeight: =FontWeight.Bold
+        Height: =45
+        Size: =8
+        Text: ="4"
+        Width: =135
+        X: =lbl.Width+lbl.X
+        Y: =lbl_3.Height+lbl_3.Y
+        ZIndex: =22
+
+    lbl_17 As label:
+        Align: =Align.Center
+        BorderColor: =RGBA(0, 0, 0, 1)
+        BorderThickness: =1
+        Color: =RGBA(102, 157, 202,1)
+        FontWeight: =FontWeight.Bold
+        Height: =45
+        Size: =8
+        Text: ="From 3.81 to 4.30"
+        Width: =170
+        X: =lbl_6.X+lbl_6.Width
+        Y: =lbl_3.Height+lbl_3.Y
+        ZIndex: =23
+
+    Icon1_5 As icon.Add:
+        Icon: =Icon.NextArrow
+        OnSelect: =Navigate(Screen3)
+        X: =1302
+        ZIndex: =24
+
