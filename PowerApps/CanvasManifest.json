@@ -137,6 +137,7 @@
     "Screen1",
     "Screen3",
     "ImageScreen",
-    "TestScreen"
+    "TestScreen",
+    "CalenderScreen"
   ]
 }
