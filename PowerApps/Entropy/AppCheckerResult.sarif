@@ -851,19 +851,19 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "CalenderScreen.Gallery3.AccessibleLabel"
+                  "fullyQualifiedName": "CalenderScreen.galCalender.AccessibleLabel"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "CalenderScreen.Gallery3.AccessibleLabel",
+                  "fullyQualifiedName": "CalenderScreen.galCalender.AccessibleLabel",
                   "relativeAddress": 0
                 }
               },
               "properties": {
                 "member": "AccessibleLabel",
                 "module": "CalenderScreen",
-                "type": "CalenderScreen.Gallery3"
+                "type": "CalenderScreen.galCalender"
               }
             }
           ],
@@ -881,19 +881,19 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "CalenderScreen.Gallery3.TabIndex"
+                  "fullyQualifiedName": "CalenderScreen.galCalender.TabIndex"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "CalenderScreen.Gallery3.TabIndex",
+                  "fullyQualifiedName": "CalenderScreen.galCalender.TabIndex",
                   "relativeAddress": 0
                 }
               },
               "properties": {
                 "member": "TabIndex",
                 "module": "CalenderScreen",
-                "type": "CalenderScreen.Gallery3"
+                "type": "CalenderScreen.galCalender"
               }
             }
           ],
@@ -905,6 +905,66 @@
           },
           "ruleId": "acc-TabIndexShouldBeDefinedForInteractiveControl",
           "ruleIndex": 1
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "CalenderScreen.galDays.TabIndex"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "CalenderScreen.galDays.TabIndex",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "TabIndex",
+                "module": "CalenderScreen",
+                "type": "CalenderScreen.galDays"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-TabIndexShouldBeDefinedForInteractiveControl",
+          "ruleIndex": 1
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "CalenderScreen.galDays.AccessibleLabel"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "CalenderScreen.galDays.AccessibleLabel",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "AccessibleLabel",
+                "module": "CalenderScreen",
+                "type": "CalenderScreen.galDays"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-AccessibleLabelNeeded",
+          "ruleIndex": 0
         },
         {
           "locations": [
