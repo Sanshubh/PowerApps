@@ -140,7 +140,9 @@ HomeScreen As screen:
         Fill: =RGBA(R-50, G-50, B-50, 1)
         Height: =45
         OnSelect: |-
-            =Set(R,RandBetween(150,255));
+            =Navigate(CalenderScreen);
+            
+            Set(R,RandBetween(150,255));
             Set(G,RandBetween(0,255));
             Set(B,RandBetween(100,255));
             

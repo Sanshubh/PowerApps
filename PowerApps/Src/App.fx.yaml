@@ -1,6 +1,16 @@
 App As appinfo:
     BackEnabled: =false
-    OnStart: =Set(varshoform,false);Set(varCurrentfrp,1);Set(varCurrentDate,Date(Year(Today()),Month(Today()),1));
+    OnStart: |-
+        =Set(varshoform,false);Set(varCurrentfrp,1);Set(varCurrentDate,Date(Year(Today()),Month(Today()),1));
+        ClearCollect(
+            colMenu,
+            {
+                Title:"Month"
+            },
+            {
+                Title:"Week"
+            }
+        );
     Theme: =PowerAppsTheme
 
     Host As hostControl.DefaultHostControlVariant:

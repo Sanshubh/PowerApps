@@ -1,4 +1,5 @@
 CalenderScreen As screen:
+    OnVisible: =Set(varCalender,"Month");
 
     galDays As gallery.galleryHorizontal:
         DelayItemLoading: =true
@@ -12,7 +13,7 @@ CalenderScreen As screen:
         Y: =50
         ZIndex: =1
 
-        Label5 As label:
+        lblDays As label:
             Align: =Align.Center
             Color: =RGBA(255, 255, 255, 1)
             Fill: =
@@ -30,14 +31,16 @@ CalenderScreen As screen:
         Items: =ForAll(Sequence(42),Value+varCurrentDate-Weekday(varCurrentDate))
         Layout: =Layout.Vertical
         LoadingSpinner: =LoadingSpinner.Data
+        OnSelect: =
         TemplatePadding: =0
         TemplateSize: =(Parent.Height/6)-(Self.Y/6)
+        Visible: =varCalender = "Month"
         Width: =Parent.Width
         WrapCount: =7
         Y: =galDays.Y+galDays.Height+2
-        ZIndex: =1
+        ZIndex: =2
 
-        Title4 As label:
+        lblDay As label:
             BorderColor: =RGBA(219, 219, 219, 1)
             BorderThickness: =1
             Color: |-
@@ -45,12 +48,17 @@ CalenderScreen As screen:
                     Month(ThisItem.Value)<>Month(varCurrentDate),
                     ColorFade(Self.Fill,-20%),
                     If(
-                        Today() = ThisItem.Value || ThisItem.IsSelected,
-                        Color.White,
+                        Today() = ThisItem.Value,
+                        RGBA(127,200,90,1),
                         Color.Black
                     )
                 )
-            Fill: =If(Today()= ThisItem.Value || ThisItem.IsSelected,RGBA(153, 207, 236, 1),Color.White)
+            Fill: |-
+                =If(
+                    ThisItem.IsSelected,
+                    RGBA(153,207,236,1),
+                    Color.White
+                )
             Font: =Font.Lato
             FontWeight: =If(ThisItem.IsSelected, FontWeight.Semibold, FontWeight.Normal)
             Height: =Parent.TemplateHeight-Self.Y*2
@@ -64,36 +72,871 @@ CalenderScreen As screen:
             Width: =Parent.TemplateWidth-Self.X*2
             X: =2
             Y: =4
+            ZIndex: =1
+
+        "galTaskData As gallery.'BrowseLayout_Vertical_OneTextVariant_ver5.0'":
+            DelayItemLoading: =true
+            Height: =Parent.TemplateHeight-Self.Y-4
+            Items: =Filter('Task List',Date = ThisItem.Value && User.Email = User().Email)
+            Layout: =Layout.Vertical
+            LoadingSpinner: =LoadingSpinner.Data
+            ShowScrollbar: =false
+            TemplatePadding: =0
+            TemplateSize: =22
+            Width: =Parent.TemplateWidth-Self.X*2
+            X: =2
+            Y: =40
             ZIndex: =2
 
-        Icon2 As icon.Add:
-            Color: =RGBA(56, 96, 178, 1)
+            btnTaskData As button:
+                BorderThickness: =0
+                Fill: =RGBA(116, 116, 116, 1)
+                FontWeight: =FontWeight.Normal
+                Height: =20
+                OnSelect: =Set(varPopupEditForm,true);Set(varFormMode,"edit");Set(varTask,ThisItem);
+                RadiusBottomLeft: =0
+                RadiusBottomRight: =0
+                RadiusTopLeft: =0
+                RadiusTopRight: =0
+                Size: =10
+                Text: =ThisItem.Title
+                Width: =Parent.Width-Self.X*2
+                X: =5
+                ZIndex: =1
+
+        icnAdd As icon.Add:
+            Color: =Color.Black
             Height: =32
             HoverColor: =RGBA(56, 96, 178, 1)
             Icon: =Icon.Add
-            OnSelect: =Select(Parent)
+            OnSelect: =Set(varPopupNewForm,true);NewForm(frmNewForm);Set(varSelectedDate,ThisItem.Value)
             PaddingBottom: =2
             PaddingLeft: =5
             PaddingRight: =5
             PaddingTop: =5
+            Visible: =ThisItem.IsSelected
             Width: =30
             X: =Parent.TemplateWidth-Self.Width
             Y: =2
             ZIndex: =3
 
-    rectBG As rectangle:
-        Height: =galDays.Y
+    "galWeekCalender As gallery.'BrowseLayout_Horizontal_TwoTextOneImageVariant_ver5.0'":
+        DelayItemLoading: =true
+        Height: =658
+        Items: =ForAll(Sequence(7),Value+varCurrentDate-Weekday(varCurrentDate))
+        LoadingSpinner: =LoadingSpinner.Data
+        TemplatePadding: =0
+        TemplateSize: =Parent.Width/7
+        Visible: =varCalender = "Week"
         Width: =Parent.Width
-        ZIndex: =2
+        Y: =110
+        ZIndex: =8
 
-    Label6 As label:
+        Rectangle11 As rectangle:
+            BorderColor: =RGBA(202, 202, 202, 1)
+            BorderThickness: =1
+            Fill: |-
+                =If(
+                    ThisItem.IsSelected,
+                    RGBA(153,207,236,1),
+                    Color.White
+                )
+            Height: =Parent.TemplateHeight-Self.Y*2-2
+            OnSelect: =Select(Parent)
+            Width: =Parent.TemplateWidth-Self.X*2
+            X: =2
+            Y: =2
+            ZIndex: =1
+
+        Label8 As label:
+            Align: =Align.Center
+            Color: |-
+                =If(
+                    Today() = ThisItem.Value,
+                    RGBA(127,200,90,1),
+                    Color.Black
+                )
+            FontWeight: =FontWeight.Semibold
+            Height: =37
+            OnSelect: =Select(Parent)
+            Text: =ThisItem.Value
+            Width: =Parent.TemplateWidth
+            ZIndex: =2
+
+        "galTaskData_1 As gallery.'BrowseLayout_Vertical_OneTextVariant_ver5.0'":
+            DelayItemLoading: =true
+            Height: =Parent.TemplateHeight-Self.Y-4
+            Items: =Filter('Task List',Date = ThisItem.Value && User.Email = User().Email)
+            Layout: =Layout.Vertical
+            LoadingSpinner: =LoadingSpinner.Data
+            ShowNavigation: =true
+            ShowScrollbar: =false
+            TemplatePadding: =0
+            TemplateSize: =22
+            Width: =Parent.TemplateWidth-Self.X*2
+            X: =4
+            Y: =40
+            ZIndex: =3
+
+            btnTaskData_1 As button:
+                BorderThickness: =0
+                Fill: =RGBA(116, 116, 116, 1)
+                FontWeight: =FontWeight.Normal
+                Height: =20
+                OnSelect: =Set(varPopupEditForm,true);Set(varFormMode,"edit");Set(varTask,ThisItem);
+                RadiusBottomLeft: =0
+                RadiusBottomRight: =0
+                RadiusTopLeft: =0
+                RadiusTopRight: =0
+                Size: =10
+                Text: =ThisItem.Title
+                Width: =Parent.Width-Self.X*2
+                X: =5
+                ZIndex: =1
+
+        icnAdd_1 As icon.Add:
+            Color: =Color.Black
+            Height: =32
+            HoverColor: =RGBA(56, 96, 178, 1)
+            Icon: =Icon.Add
+            OnSelect: =Set(varPopupNewForm,true);NewForm(frmNewForm);Set(varSelectedDate,ThisItem.Value)
+            PaddingBottom: =2
+            PaddingLeft: =5
+            PaddingRight: =5
+            PaddingTop: =5
+            Visible: =ThisItem.IsSelected
+            Width: =30
+            X: =Parent.TemplateWidth-Self.Width
+            ZIndex: =4
+
+    Label9 As label:
         Align: =Align.Center
         Color: =RGBA(255, 255, 255, 1)
-        Height: =rectBG.Height
-        Size: =18
-        Text: =Text(varCurrentDate,"mmmm yyyy")
-        Width: =rectBG.Width
-        X: =rectBG.X
-        Y: =rectBG.Y
-        ZIndex: =3
+        Fill: =RGBA(116, 116, 116, 1)
+        Height: =50
+        Text: =Text(varCurrentDate, "mmm") & " " & Text(varCurrentDate, "d") & " - " & Text(varCurrentDate, "d")+6 & ", " & Text(varCurrentDate, "yyyy")
+        Visible: =varCalender = "Week"
+        Width: =Parent.Width
+        ZIndex: =9
+
+    "galMenu As gallery.'BrowseLayout_Horizontal_TwoTextOneImageVariant_ver5.0'":
+        DelayItemLoading: =true
+        Height: =50
+        Items: =colMenu
+        LoadingSpinner: =LoadingSpinner.Data
+        TemplatePadding: =0
+        TemplateSize: =Self.Width/2
+        Width: =200
+        X: =1068
+        ZIndex: =10
+
+        lblGalType As label:
+            Align: =Align.Center
+            Color: =RGBA(255, 255, 255, 1)
+            FontWeight: =If(ThisItem.IsSelected, FontWeight.Semibold, FontWeight.Normal)
+            Height: =Parent.Height
+            OnSelect: =Set(varCalender,ThisItem.Title);Set(varCurrentDate,Date(Year(Today()),Month(Today()),1));
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =12
+            Text: =ThisItem.Title
+            Width: =Parent.TemplateWidth
+            ZIndex: =2
+
+        rectIsSelected As rectangle:
+            Fill: =RGBA(241, 244, 249, 1)
+            Height: =4
+            OnSelect: =Select(Parent)
+            Visible: =ThisItem.IsSelected
+            Width: =100
+            Y: =Parent.Height-Self.Height
+            ZIndex: =3
+
+    icnBackWeek As icon.BackArrow:
+        Color: =RGBA(255, 255, 255, 1)
+        Height: =50
+        Icon: =Icon.BackArrow
+        OnSelect: |-
+            =Set(
+                varCurrentDate,
+                Date(
+                    Year(varCurrentDate),
+                    Month(varCurrentDate),
+                    Day(varCurrentDate)-7
+                )
+            )
+        PaddingBottom: =5
+        PaddingTop: =5
+        Visible: =varCalender = "Week"
+        Width: =50
+        ZIndex: =11
+
+    grpHeader As group:
+        Height: =5
+        Width: =5
+        X: =40
+        Y: =40
+        ZIndex: =11
+
+        rectBG As rectangle:
+            Fill: =RGBA(116, 116, 116, 1)
+            Height: =galDays.Y
+            Visible: =varCalender = "Month"
+            Width: =Parent.Width
+            ZIndex: =3
+
+        lblMonth As label:
+            Align: =Align.Center
+            Color: =RGBA(255, 255, 255, 1)
+            Height: =rectBG.Height
+            Size: =18
+            Text: =Text(varCurrentDate,"mmmm yyyy")
+            Visible: =varCalender = "Month"
+            Width: =rectBG.Width
+            X: =rectBG.X
+            Y: =rectBG.Y
+            ZIndex: =4
+
+        icnBackMonth As icon.BackArrow:
+            Color: =RGBA(255, 255, 255, 1)
+            Height: =rectBG.Height
+            Icon: =Icon.BackArrow
+            OnSelect: =Set(varCurrentDate,Date(Year(varCurrentDate),Month(varCurrentDate)-1,1))
+            PaddingBottom: =5
+            PaddingLeft: =5
+            PaddingRight: =5
+            PaddingTop: =5
+            Visible: =varCalender = "Month"
+            Width: =rectBG.Height
+            ZIndex: =5
+
+        icnNextMonth As icon.BackArrow:
+            Color: =RGBA(255, 255, 255, 1)
+            Height: =rectBG.Height
+            Icon: =Icon.NextArrow
+            OnSelect: |-
+                =Set(
+                    varCurrentDate,
+                    Date(
+                        Year(varCurrentDate),
+                        Month(varCurrentDate)+1,
+                        1
+                    )
+                )
+            PaddingBottom: =5
+            PaddingLeft: =5
+            PaddingRight: =5
+            PaddingTop: =5
+            Visible: =varCalender = "Month"
+            Width: =rectBG.Height
+            X: =Parent.Width-Self.Width
+            ZIndex: =6
+
+        icnReloadMonth As icon.BackArrow:
+            Color: =RGBA(255, 255, 255, 1)
+            Height: =rectBG.Height
+            Icon: =Icon.Reset
+            OnSelect: =Set(varCurrentDate,Date(Year(Today()),Month(Today()),1))
+            PaddingBottom: =5
+            PaddingLeft: =8
+            PaddingRight: =10
+            PaddingTop: =5
+            Visible: =varCalender = "Month"
+            Width: =rectBG.Height
+            X: =50
+            ZIndex: =7
+
+    IcnNextWeek As icon.BackArrow:
+        Color: =RGBA(255, 255, 255, 1)
+        Height: =50
+        Icon: =Icon.NextArrow
+        OnSelect: |-
+            =Set(
+                varCurrentDate,
+                Date(
+                    Year(varCurrentDate),
+                    Month(varCurrentDate),
+                    Day(varCurrentDate)+7
+                )
+            )
+        PaddingBottom: =5
+        PaddingTop: =5
+        Visible: =varCalender = "Week"
+        Width: =50
+        X: =Parent.Width-Self.Width
+        ZIndex: =12
+
+    grpPopupNewForm As group:
+        Height: =5
+        Width: =5
+        X: =40
+        Y: =40
+        ZIndex: =12
+
+        recrBG As rectangle:
+            Fill: =RGBA(219, 219, 219, 0.5)
+            Height: =Parent.Height
+            Visible: =varPopupNewForm
+            Width: =Parent.Width
+            ZIndex: =18
+
+        frmNewForm As form:
+            DataSource: ='Task List'
+            DefaultMode: =FormMode.New
+            Fill: =RGBA(255, 255, 255, 1)
+            Height: =200
+            NumberOfColumns: =1
+            Visible: =varPopupNewForm
+            Width: =Parent.Width/3
+            X: =Parent.Width/3
+            Y: =250
+            ZIndex: =19
+
+            Title_DataCard1 As typedDataCard.textualEditCard:
+                BorderStyle: =BorderStyle.Solid
+                DataField: ="Title"
+                Default: =ThisItem.Title
+                DisplayMode: =Parent.DisplayMode
+                DisplayName: =DataSourceInfo([@'Task List'],DataSourceInfo.DisplayName,"Title")
+                Fill: =RGBA(0, 0, 0, 0)
+                Height: =50
+                MaxLength: =DataSourceInfo([@'Task List'], DataSourceInfo.MaxLength, "Title")
+                Required: =false
+                Update: =DataCardValue6.Text
+                Width: =455
+                X: =0
+                Y: =0
+                ZIndex: =9
+
+                DataCardKey6 As label:
+                    AutoHeight: =true
+                    Color: =RGBA(0, 0, 0, 1)
+                    Font: =Font.'Lato Black'
+                    FontWeight: =FontWeight.Bold
+                    Height: =34
+                    PaddingLeft: =0
+                    Size: =11
+                    Text: =Parent.DisplayName
+                    Width: =Parent.Width -20
+                    Wrap: =false
+                    X: =10
+                    Y: =10
+                    ZIndex: =1
+
+                DataCardValue6 As text:
+                    BorderColor: =If(IsBlank(Parent.Error), Color.Black, Color.Red)
+                    BorderThickness: =1
+                    Default: =Parent.Default
+                    DelayOutput: =true
+                    DisplayMode: =Parent.DisplayMode
+                    FocusedBorderThickness: =1
+                    Height: =30
+                    HoverFill: =RGBA(255, 255, 255, 1)
+                    MaxLength: =Parent.MaxLength
+                    PaddingLeft: =5
+                    RadiusBottomLeft: =0
+                    RadiusBottomRight: =0
+                    RadiusTopLeft: =0
+                    RadiusTopRight: =0
+                    Size: =11
+                    Tooltip: =Parent.DisplayName
+                    Width: =Parent.Width -20
+                    X: =10
+                    Y: =DataCardKey6.Y + DataCardKey6.Height + 5
+                    ZIndex: =2
+
+                ErrorMessage6 As label:
+                    AutoHeight: =true
+                    Height: =10
+                    Live: =Live.Assertive
+                    PaddingBottom: =0
+                    PaddingLeft: =0
+                    PaddingRight: =0
+                    PaddingTop: =0
+                    Text: =Parent.Error
+                    Visible: =Parent.DisplayMode=DisplayMode.Edit
+                    Width: =Parent.Width - 60
+                    X: =30
+                    Y: =DataCardValue6.Y + DataCardValue6.Height
+                    ZIndex: =3
+
+                StarVisible6 As label:
+                    Align: =Align.Center
+                    Height: =DataCardKey6.Height
+                    Text: ="*"
+                    Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                    Width: =30
+                    Wrap: =false
+                    Y: =DataCardKey6.Y
+                    ZIndex: =4
+
+            User_DataCard1 As typedDataCard.comboBoxEditCard:
+                BorderStyle: =BorderStyle.Solid
+                DataField: ="User"
+                Default: =ThisItem.User
+                DisplayMode: =Parent.DisplayMode
+                DisplayName: =DataSourceInfo([@'Task List'],DataSourceInfo.DisplayName,"User")
+                Fill: =RGBA(0, 0, 0, 0)
+                Height: =50
+                Required: =false
+                Update: =DataCardValue7.Selected
+                Visible: =false
+                Width: =455
+                X: =0
+                Y: =1
+                ZIndex: =9
+
+                DataCardKey7 As label:
+                    AutoHeight: =true
+                    Height: =34
+                    Text: =Parent.DisplayName
+                    Width: =Parent.Width - 60
+                    Wrap: =false
+                    X: =30
+                    Y: =10
+                    ZIndex: =1
+
+                DataCardValue7 As combobox:
+                    BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                    DefaultSelectedItems: |-
+                        ={
+                            '@odata.type': "#Microsoft.Azure.Connectors.SharePoint.SPListExpandedUser",
+                            Claims: Concatenate("i:0#.f|membership|",User().Email),
+                            DisplayName: User().FullName,
+                            Email: User().Email
+                        }
+                    DisplayFields: =["DisplayName","Email","Picture"]
+                    DisplayMode: =Parent.DisplayMode
+                    Items: =Choices([@'Task List'].User)
+                    PaddingLeft: =If(Self.DisplayMode = DisplayMode.Edit, 5, 0)
+                    SearchFields: =["DisplayName"]
+                    SearchItems: =Choices('Task List'.User,DataCardValue7.SearchText)
+                    SelectMultiple: =false
+                    Template: =ListItemTemplate.Person
+                    Tooltip: =Parent.DisplayName
+                    Width: =Parent.Width - 60
+                    X: =30
+                    Y: =DataCardKey7.Y + DataCardKey7.Height + 5
+                    ZIndex: =2
+
+                ErrorMessage7 As label:
+                    AutoHeight: =true
+                    Height: =10
+                    Live: =Live.Assertive
+                    PaddingBottom: =0
+                    PaddingLeft: =0
+                    PaddingRight: =0
+                    PaddingTop: =0
+                    Text: =Parent.Error
+                    Visible: =Parent.DisplayMode=DisplayMode.Edit
+                    Width: =Parent.Width - 60
+                    X: =30
+                    Y: =DataCardValue7.Y + DataCardValue7.Height
+                    ZIndex: =3
+
+                StarVisible7 As label:
+                    Align: =Align.Center
+                    Height: =DataCardKey7.Height
+                    Text: ="*"
+                    Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                    Width: =30
+                    Wrap: =false
+                    Y: =DataCardKey7.Y
+                    ZIndex: =4
+
+            Date_DataCard2 As typedDataCard.dateEditCard:
+                BorderStyle: =BorderStyle.Solid
+                DataField: ="Date"
+                Default: =ThisItem.Date
+                DisplayMode: =Parent.DisplayMode
+                DisplayName: =DataSourceInfo([@'Task List'],DataSourceInfo.DisplayName,"Date")
+                Fill: =RGBA(0, 0, 0, 0)
+                Height: =50
+                Required: =false
+                Update: =DataCardValue8.SelectedDate
+                Width: =455
+                X: =0
+                Y: =2
+                ZIndex: =9
+
+                DataCardKey8 As label:
+                    AutoHeight: =true
+                    Color: =RGBA(0, 0, 0, 1)
+                    Font: =Font.'Lato Black'
+                    FontWeight: =FontWeight.Bold
+                    Height: =34
+                    PaddingLeft: =0
+                    Size: =11
+                    Text: =Parent.DisplayName
+                    Width: =Parent.Width - 20
+                    Wrap: =false
+                    X: =10
+                    Y: =10
+                    ZIndex: =1
+
+                DataCardValue8 As datepicker:
+                    BorderColor: =If(IsBlank(Parent.Error), Color.Black, Color.Red)
+                    BorderThickness: =1
+                    DefaultDate: =varSelectedDate
+                    DisplayMode: =Parent.DisplayMode
+                    EndYear: =Year(Today())+100
+                    Height: =30
+                    IconBackground: =Color.Black
+                    IsEditable: =true
+                    PaddingBottom: =0
+                    PaddingLeft: =If(Self.DisplayMode = DisplayMode.Edit, 5, 0)
+                    Size: =11
+                    StartYear: =1899
+                    Tooltip: =Parent.DisplayName
+                    Width: =Parent.Width - 20
+                    X: =10
+                    Y: =DataCardKey8.Y + DataCardKey8.Height + 5
+                    ZIndex: =2
+
+                ErrorMessage8 As label:
+                    AutoHeight: =true
+                    Height: =10
+                    Live: =Live.Assertive
+                    PaddingBottom: =0
+                    PaddingLeft: =0
+                    PaddingRight: =0
+                    PaddingTop: =0
+                    Text: =Parent.Error
+                    Visible: =Parent.DisplayMode=DisplayMode.Edit
+                    Width: =Parent.Width - 60
+                    X: =30
+                    Y: =DataCardValue8.Y + DataCardValue8.Height
+                    ZIndex: =3
+
+                StarVisible8 As label:
+                    Align: =Align.Center
+                    Height: =DataCardKey8.Height
+                    Text: ="*"
+                    Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                    Width: =30
+                    Wrap: =false
+                    Y: =DataCardKey8.Y
+                    ZIndex: =4
+
+        icnClose As icon.Add:
+            Color: =RGBA(0, 0, 0, 1)
+            Fill: =RGBA(255, 255, 255, 1)
+            Height: =50
+            Icon: =Icon.CancelBadge
+            OnSelect: =Set(varPopupNewForm,false);
+            Visible: =varPopupNewForm
+            Width: =50
+            X: =1316
+            ZIndex: =20
+
+        lblPopupNewFrm As label:
+            Fill: =RGBA(255, 255, 255, 1)
+            FontWeight: =FontWeight.Bold
+            Text: ="New Form"
+            Visible: =varPopupNewForm
+            Width: =Parent.Width/3
+            X: =Parent.Width/3
+            Y: =frmNewForm.Y-Self.Height
+            ZIndex: =21
+
+        icnSaveForm As icon.Save:
+            Height: =lblPopupNewFrm.Height
+            Icon: =Icon.Save
+            OnSelect: =SubmitForm(frmNewForm);Set(varPopupNewForm,false);
+            PaddingBottom: =5
+            PaddingTop: =5
+            Visible: =varPopupNewForm
+            Width: =lblPopupNewFrm.Height
+            X: =lblPopupNewFrm.X+lblPopupNewFrm.Width-Self.Width
+            Y: =lblPopupNewFrm.Y
+            ZIndex: =22
+
+    grpPopupEditForm As group:
+        Height: =5
+        Width: =5
+        X: =40
+        Y: =40
+        ZIndex: =17
+
+        rectEditFormBG As rectangle:
+            Fill: =RGBA(219, 219, 219, 0.5)
+            Height: =Parent.Height
+            Visible: =varPopupEditForm
+            Width: =Parent.Width
+            ZIndex: =13
+
+        frmEditForm As form:
+            DataSource: ='Task List'
+            DefaultMode: =If(varFormMode = "edit",FormMode.Edit)
+            Fill: =RGBA(255, 255, 255, 1)
+            Height: =200
+            Item: =varTask
+            NumberOfColumns: =1
+            Visible: =varPopupEditForm
+            Width: =Parent.Width/3
+            X: =Parent.Width/3
+            Y: =250
+            ZIndex: =14
+
+            Title_DataCard1_1 As typedDataCard.textualEditCard:
+                BorderStyle: =BorderStyle.Solid
+                DataField: ="Title"
+                Default: =ThisItem.Title
+                DisplayMode: =Parent.DisplayMode
+                DisplayName: =DataSourceInfo([@'Task List'],DataSourceInfo.DisplayName,"Title")
+                Fill: =RGBA(0, 0, 0, 0)
+                Height: =50
+                MaxLength: =DataSourceInfo([@'Task List'], DataSourceInfo.MaxLength, "Title")
+                Required: =false
+                Update: =DataCardValue6_1.Text
+                Width: =455
+                X: =0
+                Y: =0
+                ZIndex: =9
+
+                DataCardKey6_1 As label:
+                    AutoHeight: =true
+                    Color: =RGBA(0, 0, 0, 1)
+                    Font: =Font.'Lato Black'
+                    FontWeight: =FontWeight.Bold
+                    Height: =34
+                    PaddingLeft: =0
+                    Size: =11
+                    Text: =Parent.DisplayName
+                    Width: =Parent.Width -20
+                    Wrap: =false
+                    X: =10
+                    Y: =10
+                    ZIndex: =1
+
+                DataCardValue6_1 As text:
+                    BorderColor: =If(IsBlank(Parent.Error), Color.Black, Color.Red)
+                    BorderThickness: =1
+                    Default: =Parent.Default
+                    DelayOutput: =true
+                    DisplayMode: =Parent.DisplayMode
+                    FocusedBorderThickness: =1
+                    Height: =30
+                    HoverFill: =RGBA(255, 255, 255, 1)
+                    MaxLength: =Parent.MaxLength
+                    PaddingLeft: =5
+                    RadiusBottomLeft: =0
+                    RadiusBottomRight: =0
+                    RadiusTopLeft: =0
+                    RadiusTopRight: =0
+                    Size: =11
+                    Tooltip: =Parent.DisplayName
+                    Width: =Parent.Width -20
+                    X: =10
+                    Y: =DataCardKey6_1.Y + DataCardKey6_1.Height + 5
+                    ZIndex: =2
+
+                ErrorMessage6_1 As label:
+                    AutoHeight: =true
+                    Height: =10
+                    Live: =Live.Assertive
+                    PaddingBottom: =0
+                    PaddingLeft: =0
+                    PaddingRight: =0
+                    PaddingTop: =0
+                    Text: =Parent.Error
+                    Visible: =Parent.DisplayMode=DisplayMode.Edit
+                    Width: =Parent.Width - 60
+                    X: =30
+                    Y: =DataCardValue6_1.Y + DataCardValue6_1.Height
+                    ZIndex: =3
+
+                StarVisible6_1 As label:
+                    Align: =Align.Center
+                    Height: =DataCardKey6_1.Height
+                    Text: ="*"
+                    Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                    Width: =30
+                    Wrap: =false
+                    Y: =DataCardKey6_1.Y
+                    ZIndex: =4
+
+            User_DataCard1_1 As typedDataCard.comboBoxEditCard:
+                BorderStyle: =BorderStyle.Solid
+                DataField: ="User"
+                Default: =ThisItem.User
+                DisplayMode: =Parent.DisplayMode
+                DisplayName: =DataSourceInfo([@'Task List'],DataSourceInfo.DisplayName,"User")
+                Fill: =RGBA(0, 0, 0, 0)
+                Height: =50
+                Required: =false
+                Update: =DataCardValue7_1.Selected
+                Visible: =false
+                Width: =455
+                X: =0
+                Y: =1
+                ZIndex: =9
+
+                DataCardKey7_1 As label:
+                    AutoHeight: =true
+                    Height: =34
+                    Text: =Parent.DisplayName
+                    Width: =Parent.Width - 60
+                    Wrap: =false
+                    X: =30
+                    Y: =10
+                    ZIndex: =1
+
+                DataCardValue7_1 As combobox:
+                    BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                    DefaultSelectedItems: |-
+                        ={
+                            '@odata.type': "#Microsoft.Azure.Connectors.SharePoint.SPListExpandedUser",
+                            Claims: Concatenate("i:0#.f|membership|",User().Email),
+                            DisplayName: User().FullName,
+                            Email: User().Email
+                        }
+                    DisplayFields: =["DisplayName","Email","Picture"]
+                    DisplayMode: =Parent.DisplayMode
+                    Items: =Choices([@'Task List'].User)
+                    PaddingLeft: =If(Self.DisplayMode = DisplayMode.Edit, 5, 0)
+                    SearchFields: =["DisplayName"]
+                    SearchItems: =Choices('Task List'.User,DataCardValue7_1.SearchText)
+                    SelectMultiple: =false
+                    Template: =ListItemTemplate.Person
+                    Tooltip: =Parent.DisplayName
+                    Width: =Parent.Width - 60
+                    X: =30
+                    Y: =DataCardKey7_1.Y + DataCardKey7_1.Height + 5
+                    ZIndex: =2
+
+                ErrorMessage7_1 As label:
+                    AutoHeight: =true
+                    Height: =10
+                    Live: =Live.Assertive
+                    PaddingBottom: =0
+                    PaddingLeft: =0
+                    PaddingRight: =0
+                    PaddingTop: =0
+                    Text: =Parent.Error
+                    Visible: =Parent.DisplayMode=DisplayMode.Edit
+                    Width: =Parent.Width - 60
+                    X: =30
+                    Y: =DataCardValue7_1.Y + DataCardValue7_1.Height
+                    ZIndex: =3
+
+                StarVisible7_1 As label:
+                    Align: =Align.Center
+                    Height: =DataCardKey7_1.Height
+                    Text: ="*"
+                    Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                    Width: =30
+                    Wrap: =false
+                    Y: =DataCardKey7_1.Y
+                    ZIndex: =4
+
+            Date_DataCard2_1 As typedDataCard.dateEditCard:
+                BorderStyle: =BorderStyle.Solid
+                DataField: ="Date"
+                Default: =ThisItem.Date
+                DisplayMode: =Parent.DisplayMode
+                DisplayName: =DataSourceInfo([@'Task List'],DataSourceInfo.DisplayName,"Date")
+                Fill: =RGBA(0, 0, 0, 0)
+                Height: =50
+                Required: =false
+                Update: =DataCardValue8_1.SelectedDate
+                Width: =455
+                X: =0
+                Y: =2
+                ZIndex: =9
+
+                DataCardKey8_1 As label:
+                    AutoHeight: =true
+                    Color: =RGBA(0, 0, 0, 1)
+                    Font: =Font.'Lato Black'
+                    FontWeight: =FontWeight.Bold
+                    Height: =34
+                    PaddingLeft: =0
+                    Size: =11
+                    Text: =Parent.DisplayName
+                    Width: =Parent.Width - 20
+                    Wrap: =false
+                    X: =10
+                    Y: =10
+                    ZIndex: =1
+
+                DataCardValue8_1 As datepicker:
+                    BorderColor: =If(IsBlank(Parent.Error), Color.Black, Color.Red)
+                    BorderThickness: =1
+                    DefaultDate: =Parent.Default
+                    DisplayMode: =Parent.DisplayMode
+                    EndYear: =Year(Today())+100
+                    FocusedBorderThickness: =1
+                    Height: =30
+                    IconBackground: =Color.Black
+                    IsEditable: =true
+                    PaddingBottom: =0
+                    PaddingLeft: =If(Self.DisplayMode = DisplayMode.Edit, 5, 0)
+                    Size: =11
+                    StartYear: =1899
+                    Tooltip: =Parent.DisplayName
+                    Width: =Parent.Width - 20
+                    X: =10
+                    Y: =DataCardKey8_1.Y + DataCardKey8_1.Height + 5
+                    ZIndex: =2
+
+                ErrorMessage8_1 As label:
+                    AutoHeight: =true
+                    Height: =10
+                    Live: =Live.Assertive
+                    PaddingBottom: =0
+                    PaddingLeft: =0
+                    PaddingRight: =0
+                    PaddingTop: =0
+                    Text: =Parent.Error
+                    Visible: =Parent.DisplayMode=DisplayMode.Edit
+                    Width: =Parent.Width - 60
+                    X: =30
+                    Y: =DataCardValue8_1.Y + DataCardValue8_1.Height
+                    ZIndex: =3
+
+                StarVisible8_1 As label:
+                    Align: =Align.Center
+                    Height: =DataCardKey8_1.Height
+                    Text: ="*"
+                    Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                    Width: =30
+                    Wrap: =false
+                    Y: =DataCardKey8_1.Y
+                    ZIndex: =4
+
+        icnCloseEditForm As icon.Add:
+            Color: =RGBA(0, 0, 0, 1)
+            Fill: =RGBA(255, 255, 255, 1)
+            Height: =50
+            Icon: =Icon.CancelBadge
+            OnSelect: =Set(varPopupEditForm,false);
+            Visible: =varPopupEditForm
+            Width: =50
+            X: =1316
+            ZIndex: =15
+
+        lblPopupEditFrm As label:
+            Fill: =RGBA(255, 255, 255, 1)
+            FontWeight: =FontWeight.Bold
+            Text: ="Edit Form"
+            Visible: =varPopupEditForm
+            Width: =Parent.Width/3
+            X: =Parent.Width/3
+            Y: =frmEditForm.Y-Self.Height
+            ZIndex: =16
+
+        icnEditForm As icon.Save:
+            Height: =lblPopupEditFrm.Height
+            Icon: =Icon.Save
+            OnSelect: =SubmitForm(frmEditForm);Set(varPopupEditForm,false);
+            PaddingBottom: =5
+            PaddingTop: =5
+            Visible: =varPopupEditForm
+            Width: =lblPopupEditFrm.Height
+            X: =lblPopupEditFrm.X+lblPopupEditFrm.Width-Self.Width
+            Y: =lblPopupEditFrm.Y
+            ZIndex: =17
 
