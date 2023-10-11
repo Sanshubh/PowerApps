@@ -93,7 +93,7 @@ CalenderScreen As screen:
                 Fill: =RGBA(116, 116, 116, 1)
                 FontWeight: =FontWeight.Normal
                 Height: =20
-                OnSelect: =Set(varPopupEditForm,true);Set(varFormMode,"edit");Set(varTask,ThisItem);
+                OnSelect: =Set(varPopupEditForm,true);Set(varFormMode,"edit");Set(varTasks,ThisItem);
                 RadiusBottomLeft: =0
                 RadiusBottomRight: =0
                 RadiusTopLeft: =0
@@ -672,7 +672,7 @@ CalenderScreen As screen:
             DefaultMode: =If(varFormMode = "edit",FormMode.Edit)
             Fill: =RGBA(255, 255, 255, 1)
             Height: =200
-            Item: =varTask
+            Item: =varTasks
             NumberOfColumns: =1
             Visible: =varPopupEditForm
             Width: =Parent.Width/3

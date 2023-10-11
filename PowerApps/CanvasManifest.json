@@ -138,6 +138,7 @@
     "Screen3",
     "ImageScreen",
     "TestScreen",
-    "CalenderScreen"
+    "CalenderScreen",
+    "OfficeMeetingsCalenderScreen"
   ]
 }

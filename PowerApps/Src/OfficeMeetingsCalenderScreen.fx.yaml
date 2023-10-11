@@ -1,0 +1,384 @@
+OfficeMeetingsCalenderScreen As screen:
+    OnVisible: =Set(varCalender,"Month");
+
+    galDays_1 As gallery.galleryHorizontal:
+        DelayItemLoading: =true
+        Fill: =RGBA(0, 0, 0, 1)
+        Height: =58
+        Items: =Calendar.WeekdaysShort()
+        LoadingSpinner: =LoadingSpinner.Data
+        TemplatePadding: =0
+        TemplateSize: =Self.Width/7
+        Width: =Parent.Width
+        Y: =50
+        ZIndex: =1
+
+        lblDays_1 As label:
+            Align: =Align.Center
+            Color: =RGBA(255, 255, 255, 1)
+            Fill: =
+            Font: =Font.Georgia
+            Height: =Parent.Height
+            Size: =15
+            Text: =ThisItem.Value
+            Width: =Parent.Width/7-4
+            X: =2
+            ZIndex: =1
+
+    "galCalender_1 As gallery.'BrowseLayout_Vertical_OneTextVariant_ver5.0'":
+        DelayItemLoading: =true
+        Height: =Parent.Height-Self.Y
+        Items: =ForAll(Sequence(42),Value+varCurrentDate-Weekday(varCurrentDate))
+        Layout: =Layout.Vertical
+        LoadingSpinner: =LoadingSpinner.Data
+        OnSelect: =
+        TemplatePadding: =0
+        TemplateSize: =(Parent.Height/6)-(Self.Y/6)
+        Visible: =varCalender = "Month"
+        Width: =Parent.Width
+        WrapCount: =7
+        Y: =galDays_1.Y+galDays_1.Height+2
+        ZIndex: =2
+
+        lblDay_1 As label:
+            BorderColor: =RGBA(219, 219, 219, 1)
+            BorderThickness: =1
+            Color: |-
+                =If(
+                    Month(ThisItem.Value)<>Month(varCurrentDate),
+                    ColorFade(Self.Fill,-20%),
+                    If(
+                        Today() = ThisItem.Value,
+                        RGBA(127,200,90,1),
+                        Color.Black
+                    )
+                )
+            Fill: |-
+                =If(
+                    ThisItem.IsSelected,
+                    RGBA(153,207,236,1),
+                    Color.White
+                )
+            Font: =Font.Lato
+            FontWeight: =If(ThisItem.IsSelected, FontWeight.Semibold, FontWeight.Normal)
+            Height: =Parent.TemplateHeight-Self.Y*2
+            OnSelect: =Select(Parent)
+            PaddingBottom: =0
+            PaddingLeft: =15
+            PaddingRight: =0
+            Size: =18
+            Text: =Day(ThisItem.Value)
+            VerticalAlign: =VerticalAlign.Top
+            Width: =Parent.TemplateWidth-Self.X*2
+            X: =2
+            Y: =4
+            ZIndex: =1
+
+        "galTaskData_2 As gallery.'BrowseLayout_Vertical_OneTextVariant_ver5.0'":
+            DelayItemLoading: =true
+            Height: =Parent.TemplateHeight-Self.Y-4
+            Items: =Filter(colCalendarMeetings,Text(startWithTimeZone,"dd/mm/YYYY") = Text(ThisItem.Value,"dd/mm/YYYY") && User().Email in requiredAttendees)
+            Layout: =Layout.Vertical
+            LoadingSpinner: =LoadingSpinner.Data
+            ShowScrollbar: =false
+            TemplatePadding: =0
+            TemplateSize: =22
+            Width: =Parent.TemplateWidth-Self.X*2
+            X: =2
+            Y: =40
+            ZIndex: =2
+
+            btnTaskData_2 As button:
+                BorderThickness: =0
+                Fill: =RGBA(116, 116, 116, 1)
+                FontWeight: =FontWeight.Normal
+                Height: =20
+                OnSelect: =Set(varPopupEditForm,true);Set(varFormMode,"edit");Set(varTask,ThisItem);
+                RadiusBottomLeft: =0
+                RadiusBottomRight: =0
+                RadiusTopLeft: =0
+                RadiusTopRight: =0
+                Size: =10
+                Text: =ThisItem.subject
+                Width: =Parent.Width-Self.X*2
+                X: =5
+                ZIndex: =1
+
+    "galWeekCalender_1 As gallery.'BrowseLayout_Horizontal_TwoTextOneImageVariant_ver5.0'":
+        DelayItemLoading: =true
+        Height: =658
+        Items: =ForAll(Sequence(7),Value+varCurrentDate-Weekday(varCurrentDate))
+        LoadingSpinner: =LoadingSpinner.Data
+        TemplatePadding: =0
+        TemplateSize: =Parent.Width/7
+        Visible: =varCalender = "Week"
+        Width: =Parent.Width
+        Y: =110
+        ZIndex: =8
+
+        Rectangle11_1 As rectangle:
+            BorderColor: =RGBA(202, 202, 202, 1)
+            BorderThickness: =1
+            Fill: |-
+                =If(
+                    ThisItem.IsSelected,
+                    RGBA(153,207,236,1),
+                    Color.White
+                )
+            Height: =Parent.TemplateHeight-Self.Y*2-2
+            OnSelect: =Select(Parent)
+            Width: =Parent.TemplateWidth-Self.X*2
+            X: =2
+            Y: =2
+            ZIndex: =1
+
+        Label8_1 As label:
+            Align: =Align.Center
+            Color: |-
+                =If(
+                    Today() = ThisItem.Value,
+                    RGBA(127,200,90,1),
+                    Color.Black
+                )
+            FontWeight: =FontWeight.Semibold
+            Height: =37
+            OnSelect: =Select(Parent)
+            Text: =ThisItem.Value
+            Width: =Parent.TemplateWidth
+            ZIndex: =2
+
+        "galTaskData_3 As gallery.'BrowseLayout_Vertical_OneTextVariant_ver5.0'":
+            DelayItemLoading: =true
+            Height: =Parent.TemplateHeight-Self.Y-4
+            Items: =Filter('Task List',Date = ThisItem.Value && User.Email = User().Email)
+            Layout: =Layout.Vertical
+            LoadingSpinner: =LoadingSpinner.Data
+            ShowNavigation: =true
+            ShowScrollbar: =false
+            TemplatePadding: =0
+            TemplateSize: =22
+            Width: =Parent.TemplateWidth-Self.X*2
+            X: =4
+            Y: =40
+            ZIndex: =3
+
+            btnTaskData_3 As button:
+                BorderThickness: =0
+                Fill: =RGBA(116, 116, 116, 1)
+                FontWeight: =FontWeight.Normal
+                Height: =20
+                OnSelect: =Set(varPopupEditForm,true);Set(varFormMode,"edit");Set(varTask,ThisItem);
+                RadiusBottomLeft: =0
+                RadiusBottomRight: =0
+                RadiusTopLeft: =0
+                RadiusTopRight: =0
+                Size: =10
+                Text: =ThisItem.Title
+                Width: =Parent.Width-Self.X*2
+                X: =5
+                ZIndex: =1
+
+    Label9_1 As label:
+        Align: =Align.Center
+        Color: =RGBA(255, 255, 255, 1)
+        Fill: =RGBA(116, 116, 116, 1)
+        Height: =50
+        Text: =Text(varCurrentDate, "mmm") & " " & Text(varCurrentDate, "d") & " - " & Text(varCurrentDate, "d")+6 & ", " & Text(varCurrentDate, "yyyy")
+        Visible: =varCalender = "Week"
+        Width: =Parent.Width
+        ZIndex: =9
+
+    "galMenu_1 As gallery.'BrowseLayout_Horizontal_TwoTextOneImageVariant_ver5.0'":
+        DelayItemLoading: =true
+        Height: =50
+        Items: =colMenu
+        LoadingSpinner: =LoadingSpinner.Data
+        TemplatePadding: =0
+        TemplateSize: =Self.Width/2
+        Width: =200
+        X: =1068
+        ZIndex: =10
+
+        lblGalType_1 As label:
+            Align: =Align.Center
+            Color: =RGBA(255, 255, 255, 1)
+            FontWeight: =If(ThisItem.IsSelected, FontWeight.Semibold, FontWeight.Normal)
+            Height: =Parent.Height
+            OnSelect: =Set(varCalender,ThisItem.Title);Set(varCurrentDate,Date(Year(Today()),Month(Today()),1));
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =12
+            Text: =ThisItem.Title
+            Width: =Parent.TemplateWidth
+            ZIndex: =2
+
+        rectIsSelected_1 As rectangle:
+            Fill: =RGBA(241, 244, 249, 1)
+            Height: =4
+            OnSelect: =Select(Parent)
+            Visible: =ThisItem.IsSelected
+            Width: =100
+            Y: =Parent.Height-Self.Height
+            ZIndex: =3
+
+    icnBackWeek_1 As icon.BackArrow:
+        Color: =RGBA(255, 255, 255, 1)
+        Height: =50
+        Icon: =Icon.BackArrow
+        OnSelect: |-
+            =Set(
+                varCurrentDate,
+                Date(
+                    Year(varCurrentDate),
+                    Month(varCurrentDate),
+                    Day(varCurrentDate)-7
+                )
+            )
+        PaddingBottom: =5
+        PaddingTop: =5
+        Visible: =varCalender = "Week"
+        Width: =50
+        ZIndex: =11
+
+    grpHeader_1 As group:
+        Height: =5
+        Width: =5
+        X: =40
+        Y: =40
+        ZIndex: =11
+
+        rectBG_1 As rectangle:
+            Fill: =RGBA(116, 116, 116, 1)
+            Height: =galDays_1.Y
+            Visible: =varCalender = "Month"
+            Width: =Parent.Width
+            ZIndex: =3
+
+        lblMonth_1 As label:
+            Align: =Align.Center
+            Color: =RGBA(255, 255, 255, 1)
+            Height: =rectBG_1.Height
+            Size: =18
+            Text: =Text(varCurrentDate,"mmmm yyyy")
+            Visible: =varCalender = "Month"
+            Width: =rectBG_1.Width
+            X: =rectBG_1.X
+            Y: =rectBG_1.Y
+            ZIndex: =4
+
+        icnBackMonth_1 As icon.BackArrow:
+            Color: =RGBA(255, 255, 255, 1)
+            Height: =rectBG_1.Height
+            Icon: =Icon.BackArrow
+            OnSelect: |-
+                =Set(varLoaderVisible,true);
+                Set(varCurrentDate,Date(Year(varCurrentDate),Month(varCurrentDate)-1,1));
+                ClearCollect(
+                    colCalendarMeetings,
+                    Office365Outlook.GetEventsCalendarViewV3(
+                        LookUp(Office365Outlook.CalendarGetTablesV2().value,name="Calendar",id),
+                        Date(Year(varCurrentDate),Month(varCurrentDate),1),
+                        DateAdd(DateAdd(varCurrentDate, 1, TimeUnit.Months), -1, TimeUnit.Days)
+                    ).value
+                );
+                Set(varLoaderVisible,false);
+            PaddingBottom: =5
+            PaddingLeft: =5
+            PaddingRight: =5
+            PaddingTop: =5
+            Visible: =varCalender = "Month"
+            Width: =rectBG_1.Height
+            ZIndex: =5
+
+        icnNextMonth_1 As icon.BackArrow:
+            Color: =RGBA(255, 255, 255, 1)
+            Height: =rectBG_1.Height
+            Icon: =Icon.NextArrow
+            OnSelect: |-
+                =Set(varLoaderVisible,true);
+                Set(varCurrentDate,Date(Year(varCurrentDate),Month(varCurrentDate)+1,1));
+                ClearCollect(
+                    colCalendarMeetings,
+                    Office365Outlook.GetEventsCalendarViewV3(
+                        LookUp(Office365Outlook.CalendarGetTablesV2().value,name="Calendar",id),
+                        Date(Year(varCurrentDate),Month(varCurrentDate),1),
+                        DateAdd(DateAdd(varCurrentDate, 1, TimeUnit.Months), -1, TimeUnit.Days)
+                    ).value
+                );
+                Set(varLoaderVisible,false);
+            PaddingBottom: =5
+            PaddingLeft: =5
+            PaddingRight: =5
+            PaddingTop: =5
+            Visible: =varCalender = "Month"
+            Width: =rectBG_1.Height
+            X: =Parent.Width-Self.Width
+            ZIndex: =6
+
+        icnReloadMonth_1 As icon.BackArrow:
+            Color: =RGBA(255, 255, 255, 1)
+            Height: =rectBG_1.Height
+            Icon: =Icon.Reset
+            OnSelect: |-
+                =Set(varLoaderVisible,true);
+                Set(varCurrentDate,Date(Year(Today()),Month(Today()),1));
+                ClearCollect(
+                    colCalendarMeetings,
+                    Office365Outlook.GetEventsCalendarViewV3(
+                        LookUp(Office365Outlook.CalendarGetTablesV2().value,name="Calendar",id),
+                        Date(Year(varCurrentDate),Month(varCurrentDate),1),
+                        DateAdd(DateAdd(varCurrentDate, 1, TimeUnit.Months), -1, TimeUnit.Days)
+                    ).value
+                );
+                Set(varLoaderVisible,false);
+            PaddingBottom: =5
+            PaddingLeft: =8
+            PaddingRight: =10
+            PaddingTop: =5
+            Visible: =varCalender = "Month"
+            Width: =rectBG_1.Height
+            X: =50
+            ZIndex: =7
+
+    IcnNextWeek_1 As icon.BackArrow:
+        Color: =RGBA(255, 255, 255, 1)
+        Height: =50
+        Icon: =Icon.NextArrow
+        OnSelect: |-
+            =Set(
+                varCurrentDate,
+                Date(
+                    Year(varCurrentDate),
+                    Month(varCurrentDate),
+                    Day(varCurrentDate)+7
+                )
+            )
+        PaddingBottom: =5
+        PaddingTop: =5
+        Visible: =varCalender = "Week"
+        Width: =50
+        X: =Parent.Width-Self.Width
+        ZIndex: =12
+
+    conLoader As groupContainer.manualLayoutContainer:
+        Height: =Parent.Height
+        Visible: =varLoaderVisible
+        Width: =Parent.Width
+        ZIndex: =24
+
+        rectLoaderBG As rectangle:
+            Fill: =RGBA(149, 149, 149, 0.4)
+            Height: =Parent.Height
+            Width: =Parent.Width
+            ZIndex: =1
+
+        Image3 As image:
+            Height: =159
+            Image: ='Infinity-1.4s-200px'
+            Width: =406
+            X: =480
+            Y: =304
+            ZIndex: =2
+

@@ -7547,7 +7547,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "galMenu",
-      "ParentIndex": 10,
+      "ParentIndex": 8,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -9275,7 +9275,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "icnBackWeek",
-      "ParentIndex": 5,
+      "ParentIndex": 4,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -10083,7 +10083,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "icnNextMonth",
-      "ParentIndex": 3,
+      "ParentIndex": 9,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -10311,7 +10311,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "IcnNextWeek",
-      "ParentIndex": 6,
+      "ParentIndex": 10,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -10538,7 +10538,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "icnReloadMonth",
-      "ParentIndex": 9,
+      "ParentIndex": 7,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -11237,7 +11237,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "Label9",
-      "ParentIndex": 4,
+      "ParentIndex": 3,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -13253,7 +13253,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "recrBG",
-      "ParentIndex": 8,
+      "ParentIndex": 6,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -13667,7 +13667,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "rectEditFormBG",
-      "ParentIndex": 7,
+      "ParentIndex": 5,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
