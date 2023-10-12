@@ -1,5 +1,17 @@
 OfficeMeetingsCalenderScreen As screen:
-    OnVisible: =Set(varCalender,"Month");
+    OnVisible: |-
+        =Set(varCalender,"Month");
+        Set(varLoaderVisible,true);
+        Set(varCurrentDate,Date(Year(Today()),Month(Today()),1));
+        ClearCollect(
+            colCalendarMeetings,
+            Office365Outlook.GetEventsCalendarViewV3(
+                LookUp(Office365Outlook.CalendarGetTablesV2().value,name="Calendar",id),
+                Date(Year(varCurrentDate),Month(varCurrentDate),1),
+                DateAdd(DateAdd(varCurrentDate, 1, TimeUnit.Months), -1, TimeUnit.Days)
+            ).value
+        );
+        Set(varLoaderVisible,false);
 
     galDays_1 As gallery.galleryHorizontal:
         DelayItemLoading: =true
@@ -150,7 +162,7 @@ OfficeMeetingsCalenderScreen As screen:
         "galTaskData_3 As gallery.'BrowseLayout_Vertical_OneTextVariant_ver5.0'":
             DelayItemLoading: =true
             Height: =Parent.TemplateHeight-Self.Y-4
-            Items: =Filter('Task List',Date = ThisItem.Value && User.Email = User().Email)
+            Items: =Filter(colCalendarMeetings,Text(startWithTimeZone,"dd/mm/YYYY") = Text(ThisItem.Value,"dd/mm/YYYY") && User().Email in requiredAttendees)
             Layout: =Layout.Vertical
             LoadingSpinner: =LoadingSpinner.Data
             ShowNavigation: =true
@@ -173,7 +185,7 @@ OfficeMeetingsCalenderScreen As screen:
                 RadiusTopLeft: =0
                 RadiusTopRight: =0
                 Size: =10
-                Text: =ThisItem.Title
+                Text: =ThisItem.subject
                 Width: =Parent.Width-Self.X*2
                 X: =5
                 ZIndex: =1
@@ -204,7 +216,8 @@ OfficeMeetingsCalenderScreen As screen:
             Color: =RGBA(255, 255, 255, 1)
             FontWeight: =If(ThisItem.IsSelected, FontWeight.Semibold, FontWeight.Normal)
             Height: =Parent.Height
-            OnSelect: =Set(varCalender,ThisItem.Title);Set(varCurrentDate,Date(Year(Today()),Month(Today()),1));
+            OnSelect: |
+                =Set(varCalender,ThisItem.Title);Set(varCurrentDate,Date(Year(Today()),Month(Today()),1));
             PaddingBottom: =0
             PaddingLeft: =0
             PaddingRight: =0
@@ -228,14 +241,17 @@ OfficeMeetingsCalenderScreen As screen:
         Height: =50
         Icon: =Icon.BackArrow
         OnSelect: |-
-            =Set(
-                varCurrentDate,
-                Date(
-                    Year(varCurrentDate),
-                    Month(varCurrentDate),
-                    Day(varCurrentDate)-7
-                )
-            )
+            =Set(varLoaderVisible,true);
+            Set(varCurrentDate,Date(Year(varCurrentDate),Month(varCurrentDate),Day(varCurrentDate)-7));
+            ClearCollect(
+                colCalendarMeetings,
+                Office365Outlook.GetEventsCalendarViewV3(
+                    LookUp(Office365Outlook.CalendarGetTablesV2().value,name="Calendar",id),
+                    Date(Year(varCurrentDate),Month(varCurrentDate),1),
+                    DateAdd(DateAdd(varCurrentDate, 1, TimeUnit.Months), -1, TimeUnit.Days)
+                ).value
+            );
+            Set(varLoaderVisible,false);
         PaddingBottom: =5
         PaddingTop: =5
         Visible: =varCalender = "Week"
@@ -347,14 +363,17 @@ OfficeMeetingsCalenderScreen As screen:
         Height: =50
         Icon: =Icon.NextArrow
         OnSelect: |-
-            =Set(
-                varCurrentDate,
-                Date(
-                    Year(varCurrentDate),
-                    Month(varCurrentDate),
-                    Day(varCurrentDate)+7
-                )
-            )
+            =Set(varLoaderVisible,true);
+            Set(varCurrentDate,Date(Year(varCurrentDate),Month(varCurrentDate),Day(varCurrentDate)+7));
+            ClearCollect(
+                colCalendarMeetings,
+                Office365Outlook.GetEventsCalendarViewV3(
+                    LookUp(Office365Outlook.CalendarGetTablesV2().value,name="Calendar",id),
+                    Date(Year(varCurrentDate),Month(varCurrentDate),1),
+                    DateAdd(DateAdd(varCurrentDate, 1, TimeUnit.Months), -1, TimeUnit.Days)
+                ).value
+            );
+            Set(varLoaderVisible,false);
         PaddingBottom: =5
         PaddingTop: =5
         Visible: =varCalender = "Week"
