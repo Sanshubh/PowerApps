@@ -1,4 +1,18 @@
 {
+  "1fc006c8-2cd8-4e0d-be1a-6b000f9d56d1": {
+    "connectionRef": {
+      "displayName": "Office 365 Users",
+      "iconUri": "https://connectoricons-prod.azureedge.net/releases/v1.0.1659/1.0.1659.3459/office365users/icon.png",
+      "id": "/providers/microsoft.powerapps/apis/shared_office365users"
+    },
+    "datasets": {},
+    "dataSources": [
+      "Office365Users"
+    ],
+    "dependencies": {},
+    "dependents": [],
+    "id": "1fc006c8-2cd8-4e0d-be1a-6b000f9d56d1"
+  },
   "642964d8-05df-48d1-b902-bf7add1410c1": {
     "connectionRef": {
       "displayName": "Microsoft Teams",
@@ -63,19 +77,5 @@
     "dependencies": {},
     "dependents": [],
     "id": "b97c6a24-9a16-40da-aea0-b3d9fbf47f43"
-  },
-  "eb816c7c-02c4-47cd-89f9-fb8ac17ea280": {
-    "connectionRef": {
-      "displayName": "Office 365 Users",
-      "iconUri": "https://connectoricons-prod.azureedge.net/releases/v1.0.1659/1.0.1659.3459/office365users/icon.png",
-      "id": "/providers/microsoft.powerapps/apis/shared_office365users"
-    },
-    "datasets": {},
-    "dataSources": [
-      "Office365Users"
-    ],
-    "dependencies": {},
-    "dependents": [],
-    "id": "eb816c7c-02c4-47cd-89f9-fb8ac17ea280"
   }
 }
