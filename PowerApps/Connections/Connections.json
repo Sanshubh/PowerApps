@@ -1,4 +1,18 @@
 {
+  "642964d8-05df-48d1-b902-bf7add1410c1": {
+    "connectionRef": {
+      "displayName": "Microsoft Teams",
+      "iconUri": "https://connectoricons-prod.azureedge.net/releases/v1.0.1656/1.0.1656.3429/teams/icon.png",
+      "id": "/providers/microsoft.powerapps/apis/shared_teams"
+    },
+    "datasets": {},
+    "dataSources": [
+      "MicrosoftTeams"
+    ],
+    "dependencies": {},
+    "dependents": [],
+    "id": "642964d8-05df-48d1-b902-bf7add1410c1"
+  },
   "67082548-f1f8-43e6-9445-f3571b57bebb": {
     "connectionRef": {
       "displayName": "Office 365 Outlook",

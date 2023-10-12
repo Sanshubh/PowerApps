@@ -116,6 +116,18 @@ OfficeMeetingsCalenderScreen As screen:
                 X: =5
                 ZIndex: =1
 
+        Icon2 As icon.Add:
+            Color: =RGBA(0, 0, 0, 1)
+            Height: =30
+            Icon: =Icon.Add
+            OnSelect: =Set(varAddMeeting,true);
+            PaddingLeft: =3
+            PaddingRight: =5
+            Width: =25
+            X: =Parent.TemplateWidth-Self.Width
+            Y: =4
+            ZIndex: =3
+
     "galWeekCalender_1 As gallery.'BrowseLayout_Horizontal_TwoTextOneImageVariant_ver5.0'":
         DelayItemLoading: =true
         Height: =658
@@ -400,4 +412,185 @@ OfficeMeetingsCalenderScreen As screen:
             X: =480
             Y: =304
             ZIndex: =2
+
+    conAddMeetings As groupContainer.manualLayoutContainer:
+        Height: =Parent.Height
+        Visible: =varAddMeeting
+        Width: =Parent.Width
+        ZIndex: =25
+
+        rectAddMeetBG As rectangle:
+            Fill: =RGBA(149, 149, 149, 0.4)
+            Height: =Parent.Height
+            Width: =Parent.Width
+            ZIndex: =1
+
+        btnAddMeetFrmBG As button:
+            DisplayMode: =DisplayMode.View
+            Fill: =RGBA(255, 255, 255, 1)
+            Height: =Parent.Height-Self.Y*2
+            RadiusBottomLeft: =20
+            RadiusBottomRight: =20
+            RadiusTopLeft: =20
+            RadiusTopRight: =20
+            Text: =""
+            Width: =Parent.Width-Self.X*2
+            X: =280
+            Y: =116
+            ZIndex: =2
+
+        icnCloseAddMeet As icon.CancelBadge:
+            Color: =RGBA(204, 8, 8, 1)
+            Height: =30
+            Icon: =Icon.CancelBadge
+            OnSelect: =Set(varAddMeeting,false);
+            Width: =30
+            X: =btnAddMeetFrmBG.X+btnAddMeetFrmBG.Width-Self.Width-8
+            Y: =btnAddMeetFrmBG.Y+8
+            ZIndex: =3
+
+        lblSubject As label:
+            FontWeight: =FontWeight.Bold
+            Height: =txtSubject.Height
+            Size: =12
+            Text: ="Subject"
+            Width: =180
+            X: =txtSubject.X-Self.Width-20
+            Y: =txtSubject.Y
+            ZIndex: =4
+
+        txtSubject As text:
+            Default: =""
+            Height: =46
+            HintText: ="Subject"
+            Size: =12
+            Width: =411
+            X: =612
+            Y: =btnAddMeetFrmBG.Y+80
+            ZIndex: =5
+
+        cmpPeoples As combobox:
+            Items: =ComboBoxSample
+            SearchItems: =Search(ComboBoxSample,cmpPeoples.SearchText,"Value1")
+            Size: =12
+            Width: =txtSubject.Width
+            X: =txtSubject.X
+            Y: =txtBody.Y+txtBody.Height+10
+            ZIndex: =6
+
+        dteStartDate As datepicker:
+            Size: =12
+            Width: =(txtSubject.Width*60)/100
+            X: =txtSubject.X
+            Y: =cmpPeoples.Y+cmpPeoples.Height+10
+            ZIndex: =7
+
+        txtBody As text:
+            Default: =""
+            Height: =91
+            HintText: ="Body"
+            Mode: =TextMode.MultiLine
+            Size: =12
+            Width: =txtSubject.Width
+            X: =txtSubject.X
+            Y: =txtSubject.Y+txtSubject.Height+10
+            ZIndex: =8
+
+        cmbStarthours As combobox:
+            InputTextPlaceholder: =""
+            Items: =ComboBoxSample
+            SearchItems: =Search(ComboBoxSample,cmbStarthours.SearchText,"Value1")
+            Size: =12
+            Width: =(txtSubject.Width*18)/100
+            X: =dteStartDate.X+dteStartDate.Width+10
+            Y: =dteStartDate.Y
+            ZIndex: =9
+
+        cmbStartMinutes As combobox:
+            InputTextPlaceholder: =""
+            Items: =ComboBoxSample
+            SearchItems: =Search(ComboBoxSample,cmbStartMinutes.SearchText,"Value1")
+            Size: =12
+            Width: =(txtSubject.Width*18)/100
+            X: =cmbStarthours.X+cmbStarthours.Width+7
+            Y: =dteStartDate.Y
+            ZIndex: =10
+
+        dteEndDate As datepicker:
+            Size: =12
+            Width: =(txtSubject.Width*60)/100
+            X: =txtSubject.X
+            Y: =dteStartDate.Y+dteStartDate.Height+10
+            ZIndex: =11
+
+        cmbEndhours As combobox:
+            InputTextPlaceholder: =""
+            Items: =ComboBoxSample
+            SearchItems: =Search(ComboBoxSample,cmbEndhours.SearchText,"Value1")
+            Size: =12
+            Width: =(txtSubject.Width*18)/100
+            X: =dteEndDate.X+dteEndDate.Width+10
+            Y: =dteEndDate.Y
+            ZIndex: =12
+
+        cmbEndMinutes As combobox:
+            InputTextPlaceholder: =""
+            Items: =ComboBoxSample
+            SearchItems: =Search(ComboBoxSample,cmbEndMinutes.SearchText,"Value1")
+            Size: =12
+            Width: =(txtSubject.Width*18)/100
+            X: =cmbEndhours.X+cmbEndhours.Width+7
+            Y: =dteEndDate.Y
+            ZIndex: =13
+
+        lblBody As label:
+            FontWeight: =FontWeight.Bold
+            Height: =txtSubject.Height
+            Size: =12
+            Text: ="Body"
+            Width: =lblSubject.Width
+            X: =lblSubject.X
+            Y: =txtBody.Y
+            ZIndex: =14
+
+        lblRA As label:
+            FontWeight: =FontWeight.Bold
+            Height: =cmpPeoples.Height
+            Size: =12
+            Text: ="Required Attandees"
+            Width: =lblSubject.Width
+            X: =lblSubject.X
+            Y: =cmpPeoples.Y
+            ZIndex: =15
+
+        lblStart As label:
+            FontWeight: =FontWeight.Bold
+            Height: =cmpPeoples.Height
+            Size: =12
+            Text: ="StartDate & Time"
+            Width: =lblSubject.Width
+            X: =lblSubject.X
+            Y: =dteStartDate.Y
+            ZIndex: =16
+
+        lblEnd As label:
+            FontWeight: =FontWeight.Bold
+            Height: =cmpPeoples.Height
+            Size: =12
+            Text: ="EndDate & Time"
+            Width: =lblSubject.Width
+            X: =lblSubject.X
+            Y: =dteEndDate.Y
+            ZIndex: =17
+
+        lblMeetFrm As label:
+            Align: =Align.Center
+            FontWeight: =FontWeight.Bold
+            Height: =cmpPeoples.Height
+            Size: =14
+            Text: ="Add New Meeeting for "
+            Width: =btnAddMeetFrmBG.Width
+            X: =btnAddMeetFrmBG.X
+            Y: =124
+            ZIndex: =18
 
