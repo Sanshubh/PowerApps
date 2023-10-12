@@ -105,7 +105,7 @@ OfficeMeetingsCalenderScreen As screen:
                 Fill: =RGBA(116, 116, 116, 1)
                 FontWeight: =FontWeight.Normal
                 Height: =20
-                OnSelect: =Set(varPopupEditForm,true);Set(varFormMode,"edit");Set(varTask,ThisItem);
+                OnSelect: =Set(varPopupEditForm,true);Set(varFormMode,"edit");Set(varMeet,ThisItem);
                 RadiusBottomLeft: =0
                 RadiusBottomRight: =0
                 RadiusTopLeft: =0
@@ -120,9 +120,10 @@ OfficeMeetingsCalenderScreen As screen:
             Color: =RGBA(0, 0, 0, 1)
             Height: =30
             Icon: =Icon.Add
-            OnSelect: =Set(varAddMeeting,true);
+            OnSelect: =Set(varAddMeeting,true);Set(varCurrTime,ThisItem.Value);Set(varResetMeet,false);
             PaddingLeft: =3
             PaddingRight: =5
+            Visible: =If(ThisItem.IsSelected,true,false)
             Width: =25
             X: =Parent.TemplateWidth-Self.Width
             Y: =4
@@ -439,16 +440,6 @@ OfficeMeetingsCalenderScreen As screen:
             Y: =116
             ZIndex: =2
 
-        icnCloseAddMeet As icon.CancelBadge:
-            Color: =RGBA(204, 8, 8, 1)
-            Height: =30
-            Icon: =Icon.CancelBadge
-            OnSelect: =Set(varAddMeeting,false);
-            Width: =30
-            X: =btnAddMeetFrmBG.X+btnAddMeetFrmBG.Width-Self.Width-8
-            Y: =btnAddMeetFrmBG.Y+8
-            ZIndex: =3
-
         lblSubject As label:
             FontWeight: =FontWeight.Bold
             Height: =txtSubject.Height
@@ -457,91 +448,124 @@ OfficeMeetingsCalenderScreen As screen:
             Width: =180
             X: =txtSubject.X-Self.Width-20
             Y: =txtSubject.Y
-            ZIndex: =4
+            ZIndex: =3
 
         txtSubject As text:
             Default: =""
             Height: =46
             HintText: ="Subject"
+            Reset: =varResetMeet
             Size: =12
             Width: =411
-            X: =612
+            X: =(btnAddMeetFrmBG.Width+btnAddMeetFrmBG.X)/1.9
             Y: =btnAddMeetFrmBG.Y+80
-            ZIndex: =5
+            ZIndex: =4
 
         cmpPeoples As combobox:
-            Items: =ComboBoxSample
-            SearchItems: =Search(ComboBoxSample,cmpPeoples.SearchText,"Value1")
+            DisplayFields: =["DisplayName"]
+            Items: =Office365Users.SearchUser({})
+            Reset: =varResetMeet
+            SearchFields: =["DisplayName"]
+            SearchItems: =Search(Office365Users.SearchUser({}),cmpPeoples.SearchText,"DisplayName")
             Size: =12
             Width: =txtSubject.Width
             X: =txtSubject.X
             Y: =txtBody.Y+txtBody.Height+10
-            ZIndex: =6
+            ZIndex: =5
 
         dteStartDate As datepicker:
+            DefaultDate: =varCurrTime
+            Reset: =varResetMeet
             Size: =12
-            Width: =(txtSubject.Width*60)/100
+            Width: =(txtSubject.Width*40)/100
             X: =txtSubject.X
             Y: =cmpPeoples.Y+cmpPeoples.Height+10
-            ZIndex: =7
+            ZIndex: =6
 
         txtBody As text:
             Default: =""
             Height: =91
             HintText: ="Body"
             Mode: =TextMode.MultiLine
+            Reset: =varResetMeet
             Size: =12
             Width: =txtSubject.Width
             X: =txtSubject.X
             Y: =txtSubject.Y+txtSubject.Height+10
-            ZIndex: =8
+            ZIndex: =7
 
         cmbStarthours As combobox:
+            DefaultSelectedItems: =[10]
+            DisplayFields: =["Hour"]
             InputTextPlaceholder: =""
-            Items: =ComboBoxSample
-            SearchItems: =Search(ComboBoxSample,cmbStarthours.SearchText,"Value1")
+            IsSearchable: =false
+            Items: =HourCollection
+            Reset: =varResetMeet
+            SearchFields: =["Hour"]
+            SearchItems: =[]
+            SelectMultiple: =false
             Size: =12
             Width: =(txtSubject.Width*18)/100
             X: =dteStartDate.X+dteStartDate.Width+10
             Y: =dteStartDate.Y
-            ZIndex: =9
+            ZIndex: =8
 
         cmbStartMinutes As combobox:
+            DefaultSelectedItems: =["00"]
+            DisplayFields: =["Minute"]
             InputTextPlaceholder: =""
-            Items: =ComboBoxSample
-            SearchItems: =Search(ComboBoxSample,cmbStartMinutes.SearchText,"Value1")
+            IsSearchable: =false
+            Items: =MinutesCollection
+            Reset: =varResetMeet
+            SearchFields: =["Minute"]
+            SearchItems: =Search(MinutesCollection,cmbStartMinutes.SearchText,"Minute")
+            SelectMultiple: =false
             Size: =12
             Width: =(txtSubject.Width*18)/100
             X: =cmbStarthours.X+cmbStarthours.Width+7
             Y: =dteStartDate.Y
-            ZIndex: =10
+            ZIndex: =9
 
         dteEndDate As datepicker:
+            DefaultDate: =varCurrTime
+            Reset: =varResetMeet
             Size: =12
-            Width: =(txtSubject.Width*60)/100
+            Width: =(txtSubject.Width*40)/100
             X: =txtSubject.X
             Y: =dteStartDate.Y+dteStartDate.Height+10
-            ZIndex: =11
+            ZIndex: =10
 
         cmbEndhours As combobox:
+            DefaultSelectedItems: =[10]
+            DisplayFields: =["Hour"]
             InputTextPlaceholder: =""
-            Items: =ComboBoxSample
-            SearchItems: =Search(ComboBoxSample,cmbEndhours.SearchText,"Value1")
+            IsSearchable: =false
+            Items: =HourCollection
+            Reset: =varResetMeet
+            SearchFields: =["Hour"]
+            SearchItems: =[]
+            SelectMultiple: =false
             Size: =12
             Width: =(txtSubject.Width*18)/100
             X: =dteEndDate.X+dteEndDate.Width+10
             Y: =dteEndDate.Y
-            ZIndex: =12
+            ZIndex: =11
 
         cmbEndMinutes As combobox:
+            DefaultSelectedItems: =["30"]
+            DisplayFields: =["Minute"]
             InputTextPlaceholder: =""
-            Items: =ComboBoxSample
-            SearchItems: =Search(ComboBoxSample,cmbEndMinutes.SearchText,"Value1")
+            IsSearchable: =false
+            Items: =MinutesCollection
+            Reset: =varResetMeet
+            SearchFields: =["Minute"]
+            SearchItems: =Search(MinutesCollection,cmbEndMinutes.SearchText,"Minute")
+            SelectMultiple: =false
             Size: =12
             Width: =(txtSubject.Width*18)/100
             X: =cmbEndhours.X+cmbEndhours.Width+7
             Y: =dteEndDate.Y
-            ZIndex: =13
+            ZIndex: =12
 
         lblBody As label:
             FontWeight: =FontWeight.Bold
@@ -551,7 +575,7 @@ OfficeMeetingsCalenderScreen As screen:
             Width: =lblSubject.Width
             X: =lblSubject.X
             Y: =txtBody.Y
-            ZIndex: =14
+            ZIndex: =13
 
         lblRA As label:
             FontWeight: =FontWeight.Bold
@@ -561,7 +585,7 @@ OfficeMeetingsCalenderScreen As screen:
             Width: =lblSubject.Width
             X: =lblSubject.X
             Y: =cmpPeoples.Y
-            ZIndex: =15
+            ZIndex: =14
 
         lblStart As label:
             FontWeight: =FontWeight.Bold
@@ -571,7 +595,7 @@ OfficeMeetingsCalenderScreen As screen:
             Width: =lblSubject.Width
             X: =lblSubject.X
             Y: =dteStartDate.Y
-            ZIndex: =16
+            ZIndex: =15
 
         lblEnd As label:
             FontWeight: =FontWeight.Bold
@@ -581,7 +605,7 @@ OfficeMeetingsCalenderScreen As screen:
             Width: =lblSubject.Width
             X: =lblSubject.X
             Y: =dteEndDate.Y
-            ZIndex: =17
+            ZIndex: =16
 
         lblMeetFrm As label:
             Align: =Align.Center
@@ -592,5 +616,68 @@ OfficeMeetingsCalenderScreen As screen:
             Width: =btnAddMeetFrmBG.Width
             X: =btnAddMeetFrmBG.X
             Y: =124
+            ZIndex: =17
+
+        btnSubmitForm As button:
+            OnSelect: |-
+                =MicrosoftTeams.CreateTeamsMeeting(
+                	LookUp(Office365Outlook.CalendarGetTables().value,DisplayName="Calendar").Name,
+                	txtSubject.Text,
+                	{content: txtBody.Text, contentType: "html"},
+                	"Central Standard Time",
+                	{dateTime: DateTimeValue(dteStartDate.SelectedDate & " " & cmbStarthours.Selected.Hour & ":" & cmbStartMinutes.Selected.Minute & cmbAPmStart.Selected.Value)},
+                	{dateTime: DateTimeValue(dteEndDate.SelectedDate & " " & cmbEndhours.Selected.Hour & ":" & cmbEndMinutes.Selected.Minute & cmbAPmEnd.Selected.Value)},
+                	true,
+                	"teamsForBusiness",
+                	{requiredAttendees:cmpPeoples.Selected.UserPrincipalName}
+                );
+                Set(varAddMeeting,false);
+                Set(varResetMeet,true);
+                Set(varResetMeet,false);
+            Text: ="Submit"
+            X: =(Parent.Width/2)-(Self.Width/2)
+            Y: =btnAddMeetFrmBG.Y+btnAddMeetFrmBG.Height-Self.Height-10
             ZIndex: =18
+
+        icnCloseAddMeet As icon.CancelBadge:
+            Color: =RGBA(204, 8, 8, 1)
+            Height: =30
+            Icon: =Icon.CancelBadge
+            OnSelect: =Set(varAddMeeting,false);Set(varResetMeet,true);Set(varResetMeet,false);
+            Width: =30
+            X: =btnAddMeetFrmBG.X+btnAddMeetFrmBG.Width-Self.Width-8
+            Y: =btnAddMeetFrmBG.Y+8
+            ZIndex: =19
+
+        cmbAPmStart As combobox:
+            DefaultSelectedItems: =["AM"]
+            DisplayFields: =["Value"]
+            InputTextPlaceholder: =""
+            IsSearchable: =false
+            Items: =colAPM
+            Reset: =varResetMeet
+            SearchFields: =["Value"]
+            SearchItems: =[]
+            SelectMultiple: =false
+            Size: =12
+            Width: =(txtSubject.Width*18)/100
+            X: =cmbStartMinutes.X+cmbStartMinutes.Width+8
+            Y: =403
+            ZIndex: =20
+
+        cmbAPmEnd As combobox:
+            DefaultSelectedItems: =["AM"]
+            DisplayFields: =["Value"]
+            InputTextPlaceholder: =""
+            IsSearchable: =false
+            Items: =colAPM
+            Reset: =varResetMeet
+            SearchFields: =["Value"]
+            SearchItems: =[]
+            SelectMultiple: =false
+            Size: =12
+            Width: =(txtSubject.Width*18)/100
+            X: =cmbAPmStart.X
+            Y: =453
+            ZIndex: =21
 

@@ -11,6 +11,35 @@ App As appinfo:
                 Title:"Week"
             }
         );
+        ClearCollect(
+            HourCollection,
+            { Hour: "01" },
+            { Hour: "02" },
+            { Hour: "03" },
+            { Hour: "04" },
+            { Hour: "05" },
+            { Hour: "06" },
+            { Hour: "07" },
+            { Hour: "08" },
+            { Hour: "09" },
+            { Hour: "10" },
+            { Hour: "11" },
+            { Hour: "12" }
+        );
+        ClearCollect(colAPM,{Value:"AM"},{Value:"PM"});
+        ClearCollect(
+            MinutesCollection,
+            { Minute: "00" },{ Minute: "01" },{ Minute: "02" },{ Minute: "03" },{ Minute: "04" },{ Minute: "05" },
+            { Minute: "06" },{ Minute: "07" },{ Minute: "08" },{ Minute: "09" },{ Minute: "10" },{ Minute: "11" },
+            { Minute: "12" },{ Minute: "13" },{ Minute: "14" },{ Minute: "15" },{ Minute: "16" },{ Minute: "17" },
+            { Minute: "18" },{ Minute: "19" },{ Minute: "20" },{ Minute: "21" },{ Minute: "22" },{ Minute: "23" },
+            { Minute: "24" },{ Minute: "25" },{ Minute: "26" },{ Minute: "27" },{ Minute: "28" },{ Minute: "29" },
+            { Minute: "30" },{ Minute: "31" },{ Minute: "32" },{ Minute: "33" },{ Minute: "34" },{ Minute: "35" },
+            { Minute: "36" },{ Minute: "37" },{ Minute: "38" },{ Minute: "39" },{ Minute: "40" },{ Minute: "41" },
+            { Minute: "42" },{ Minute: "43" },{ Minute: "44" },{ Minute: "45" },{ Minute: "46" },{ Minute: "47" },
+            { Minute: "48" },{ Minute: "49" },{ Minute: "50" },{ Minute: "51" },{ Minute: "52" },{ Minute: "53" },
+            { Minute: "54" },{ Minute: "55" },{ Minute: "56" },{ Minute: "57" },{ Minute: "58" },{ Minute: "59" }
+        );
     Theme: =PowerAppsTheme
 
     Host As hostControl.DefaultHostControlVariant:

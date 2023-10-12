@@ -3221,17 +3221,77 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "App.varshoform"
+                  "fullyQualifiedName": "OfficeMeetingsCalenderScreen.conAddMeetings.cmbAPmStart.AccessibleLabel"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "App.varshoform",
+                  "fullyQualifiedName": "OfficeMeetingsCalenderScreen.conAddMeetings.cmbAPmStart.AccessibleLabel",
                   "relativeAddress": 0
                 }
               },
               "properties": {
-                "member": "varshoform",
+                "member": "AccessibleLabel",
+                "module": "OfficeMeetingsCalenderScreen",
+                "type": "OfficeMeetingsCalenderScreen.conAddMeetings.cmbAPmStart"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-AccessibleLabelNeeded",
+          "ruleIndex": 0
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "OfficeMeetingsCalenderScreen.conAddMeetings.cmbAPmEnd.AccessibleLabel"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "OfficeMeetingsCalenderScreen.conAddMeetings.cmbAPmEnd.AccessibleLabel",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "AccessibleLabel",
+                "module": "OfficeMeetingsCalenderScreen",
+                "type": "OfficeMeetingsCalenderScreen.conAddMeetings.cmbAPmEnd"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-AccessibleLabelNeeded",
+          "ruleIndex": 0
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "App.varCurrentfrp"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "App.varCurrentfrp",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "varCurrentfrp",
                 "module": "App",
                 "type": "App"
               }
@@ -3251,17 +3311,17 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "App.varCurrentfrp"
+                  "fullyQualifiedName": "App.varshoform"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "App.varCurrentfrp",
+                  "fullyQualifiedName": "App.varshoform",
                   "relativeAddress": 0
                 }
               },
               "properties": {
-                "member": "varCurrentfrp",
+                "member": "varshoform",
                 "module": "App",
                 "type": "App"
               }
@@ -3322,6 +3382,36 @@
               },
               "properties": {
                 "member": "varCountData",
+                "module": "App",
+                "type": "App"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "app-UnusedVariables",
+          "ruleIndex": 4
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "App.varMeet"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "App.varMeet",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "varMeet",
                 "module": "App",
                 "type": "App"
               }
