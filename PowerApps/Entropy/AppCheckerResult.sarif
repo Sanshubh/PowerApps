@@ -3281,6 +3281,126 @@
             {
               "logicalLocations": [
                 {
+                  "fullyQualifiedName": "OfficeMeetingsCalenderScreen.icnHomeO365.AccessibleLabel"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "OfficeMeetingsCalenderScreen.icnHomeO365.AccessibleLabel",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "AccessibleLabel",
+                "module": "OfficeMeetingsCalenderScreen",
+                "type": "OfficeMeetingsCalenderScreen.icnHomeO365"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-AccessibleLabelNeeded",
+          "ruleIndex": 0
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "OfficeMeetingsCalenderScreen.icnHomeO365.TabIndex"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "OfficeMeetingsCalenderScreen.icnHomeO365.TabIndex",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "TabIndex",
+                "module": "OfficeMeetingsCalenderScreen",
+                "type": "OfficeMeetingsCalenderScreen.icnHomeO365"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-TabIndexShouldBeDefinedForInteractiveControl",
+          "ruleIndex": 1
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "CalenderScreen.icnHomeO365_1.AccessibleLabel"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "CalenderScreen.icnHomeO365_1.AccessibleLabel",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "AccessibleLabel",
+                "module": "CalenderScreen",
+                "type": "CalenderScreen.icnHomeO365_1"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-AccessibleLabelNeeded",
+          "ruleIndex": 0
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "CalenderScreen.icnHomeO365_1.TabIndex"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "CalenderScreen.icnHomeO365_1.TabIndex",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "TabIndex",
+                "module": "CalenderScreen",
+                "type": "CalenderScreen.icnHomeO365_1"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-TabIndexShouldBeDefinedForInteractiveControl",
+          "ruleIndex": 1
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
                   "fullyQualifiedName": "App.varCurrentfrp"
                 }
               ],
@@ -3455,6 +3575,66 @@
           },
           "ruleId": "app-UnusedMediaResources",
           "ruleIndex": 5
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "CalenderScreen.icnHomeO365_1.Width"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "CalenderScreen.icnHomeO365_1.Width",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "Width",
+                "module": "CalenderScreen",
+                "type": "CalenderScreen.icnHomeO365_1"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "app-InefficientDelayLoading",
+          "ruleIndex": 6
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "CalenderScreen.icnHomeO365_1.Height"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "CalenderScreen.icnHomeO365_1.Height",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "Height",
+                "module": "CalenderScreen",
+                "type": "CalenderScreen.icnHomeO365_1"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "app-InefficientDelayLoading",
+          "ruleIndex": 6
         }
       ],
       "tool": {
@@ -3562,6 +3742,23 @@
                 "level": "Medium",
                 "primaryCategory": "performance",
                 "whyFix": "This media file is not referenced by any control formulas so it is not needed. Removing it will improve performance."
+              }
+            },
+            {
+              "id": "app-InefficientDelayLoading",
+              "messageStrings": {
+                "issue": {
+                  "text": "Inefficient delay loading"
+                }
+              },
+              "properties": {
+                "componentType": "app",
+                "howToFix": [
+                  "Use variables, collections, and navigation context to share state across screens instead."
+                ],
+                "level": "Medium",
+                "primaryCategory": "performance",
+                "whyFix": "Controls that reference controls on other screens can slow down app loading and navigation. Doing this may force the app to load the other screens immediately, rather than waiting until the user navigates to that screen."
               }
             }
           ],

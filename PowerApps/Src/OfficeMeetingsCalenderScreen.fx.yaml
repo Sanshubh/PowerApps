@@ -681,3 +681,17 @@ OfficeMeetingsCalenderScreen As screen:
             Y: =453
             ZIndex: =21
 
+    icnHomeO365 As icon.BackArrow:
+        Color: =RGBA(255, 255, 255, 1)
+        Height: =rectBG_1.Height
+        Icon: =Icon.Home
+        OnSelect: =Navigate(HomeScreen);
+        PaddingBottom: =5
+        PaddingLeft: =8
+        PaddingRight: =10
+        PaddingTop: =5
+        Visible: =varCalender = "Month"
+        Width: =rectBG_1.Height
+        X: =100
+        ZIndex: =26
+
